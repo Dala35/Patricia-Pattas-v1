@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrícia Pattas | Make up & Crochê</title>
+    <meta name="description" content="Vendas, serviços e formação de maquilhagem profissional e moda crochê.">
+    <meta name="keywords" content="maquilhagem, crochê, formação, angola, beleza, patrícia pattas">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Configuração de Cores (Tailwind) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8B5CF6', // Roxo vibrante
+                        primaryDark: '#7C3AED', // Roxo escuro
+                        secondary: '#DDD6FE', // Lilás claro
+                        accent: '#4C1D95', // Roxo profundo
+                        surface: '#F3E8FF', // Fundo lilás muito claro
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Animações e Estilos Personalizados */
+        body { font-family: 'Poppins', sans-serif; }
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Chatbot Patrícia */
+        .chat-bubble { position: relative; max-width: 80%; padding: 10px 15px; border-radius: 15px; margin-bottom: 10px; font-size: 0.9rem; }
+        .chat-user { background-color: #8B5CF6; color: white; align-self: flex-end; border-bottom-right-radius: 2px; margin-left: auto; }
+        .chat-bot { background-color: #F3F4F6; color: #1F2937; align-self: flex-start; border-bottom-left-radius: 2px; border: 1px solid #E5E7EB; }
+        
+        /* Scrollbar personalizada */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #F3E8FF; }
+        ::-webkit-scrollbar-thumb { background: #8B5CF6; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #7C3AED; }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+
+    <!-- CABEÇALHO -->
+    <header class="fixed w-full top-0 z-50 glass-effect shadow-md border-b border-purple-100 transition-all duration-300" id="main-header">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            
+            <!-- Logotipo -->
+            <div class="flex items-center gap-2 cursor-pointer" onclick="router('home')">
+                <div class="w-10 h-10 bg-gradient-to-tr from-primary to-purple-400 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                    P
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-primaryDark leading-tight">Patrícia Pattas</h1>
+                    <p class="text-xs text-gray-500 font-medium tracking-wider">MAKE UP & CROCHÊ</p>
+                </div>
+            </div>
+
+            <!-- Navegação Desktop -->
+            <nav class="hidden lg:flex items-center gap-6 text-sm font-semibold text-gray-600">
+                <a href="#" onclick="router('home')" class="hover:text-primary transition">Início</a>
+                <a href="#" onclick="router('shop')" class="hover:text-primary transition">Loja</a>
+                <a href="#" onclick="router('services')" class="hover:text-primary transition">Serviços</a>
+                <a href="#" onclick="router('booking')" class="hover:text-primary transition">Agendamento</a>
+                <a href="#" onclick="router('multimedia')" class="hover:text-primary transition">Multimédia</a>
+                <a href="#" onclick="router('blog')" class="hover:text-primary transition">Blog</a>
+                <a href="#" onclick="router('partners')" class="hover:text-primary transition">Parceiros</a>
+                <a href="#" onclick="router('contact')" class="hover:text-primary transition">Contato</a>
+            </nav>
+
+            <!-- Ícones de Ação -->
+            <div class="flex items-center gap-4">
+                <div class="hidden md:flex gap-3 text-primary">
+                    <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram hover:scale-110 transition"></i></a>
+                    <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook hover:scale-110 transition"></i></a>
+                    <a href="https://tiktok.com" target="_blank"><i class="fab fa-tiktok hover:scale-110 transition"></i></a>
+                </div>
+
+                <!-- Carrinho -->
+                <button onclick="router('cart')" class="relative text-primaryDark hover:text-primary transition">
+                    <i class="fas fa-shopping-bag text-2xl"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                </button>
+
+                <!-- Menu Hambúrguer (Mobile) -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden text-primaryDark text-2xl focus:outline-none">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menu Mobile Dropdown -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-purple-100 absolute w-full left-0 shadow-lg">
+            <div class="flex flex-col p-4 gap-3 text-center font-medium">
+                <a href="#" onclick="router('home'); toggleMobileMenu()" class="py-2 text-gray-700 hover:bg-purple-50 rounded">Início</a>
+                <a href="#" onclick="router('shop'); toggleMobileMenu()" class="py-2 text-gray-700 hover:bg-purple-50 rounded">Loja & Produtos</a>
+                <a href="#" onclick="router('services'); toggleMobileMenu()" class="py-2 text-gray-700 hover:bg-purple-50 rounded">Serviços & Formação</a>
+                <a href="#" onclick="router('booking'); toggleMobileMenu()" class="py-2 text-gray-700 hover:bg-purple-50 rounded">Agendamento</a>
+                <a href="#" onclick="router('multimedia'); toggleMobileMenu()" class="py-2 text-gray-700 hover:bg-purple-50 rounded">Vídeos & Dicas</a>
+                <a href="#" onclick="router('blog'); toggleMobileMenu()" class="py-2 text-gray-700 hover:bg-purple-50 rounded">Blog</a>
+                <a href="#" onclick="router('partners'); toggleMobileMenu()" class="py-2 text-gray-700 hover:bg-purple-50 rounded">Publicidade & Vagas</a>
+                <a href="#" onclick="router('contact'); toggleMobileMenu()" class="py-2 text-gray-700 hover:bg-purple-50 rounded">Contato</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL (SPA) -->
+    <main id="app-content" class="flex-grow pt-20 pb-10 min-h-[80vh]">
+        <!-- O conteúdo será injetado aqui via JavaScript -->
+    </main>
+
+    <!-- ASSISTENTE PATRÍCIA (Chatbot) -->
+    <div class="fixed bottom-6 right-6 z-40 flex flex-col items-end">
+        <!-- Janela do Chat -->
+        <div id="chat-window" class="hidden bg-white w-80 h-96 rounded-2xl shadow-2xl border border-purple-200 flex flex-col mb-4 overflow-hidden transform transition-all origin-bottom-right">
+            <div class="bg-primary p-3 flex justify-between items-center text-white">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary font-bold">P</div>
+                    <div>
+                        <p class="font-bold text-sm">Patrícia Pattas</p>
+                        <p class="text-xs text-purple-200 flex items-center gap-1"><span class="w-2 h-2 bg-green-400 rounded-full"></span> Online agora</p>
+                    </div>
+                </div>
+                <button onclick="toggleChat()" class="text-white hover:text-purple-200"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="chat-messages" class="flex-1 p-3 overflow-y-auto bg-gray-50 flex flex-col gap-2">
+                <!-- Mensagens aparecerão aqui -->
+            </div>
+            <div class="p-3 bg-white border-t flex gap-2">
+                <input type="text" id="chat-input" placeholder="Pergunte algo..." class="flex-1 border rounded-full px-4 py-2 text-sm focus:outline-none focus:border-primary" onkeypress="if(event.key === 'Enter') sendMessage()">
+                <button onclick="sendMessage()" class="bg-primary text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-primaryDark transition"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+
+        <!-- Botão Flutuante -->
+        <button onclick="toggleChat()" class="bg-primary hover:bg-primaryDark text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center text-2xl transition transform hover:scale-105 animate-bounce">
+            <i class="fas fa-comment-dots"></i>
+        </button>
+        <!-- WhatsApp Fixo -->
+        <a href="https://wa.me/244926837464" target="_blank" class="bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center text-2xl mt-4 transition transform hover:scale-105">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <!-- RODAPÉ -->
+    <footer class="bg-gray-900 text-gray-300 pt-16 pb-8">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+            
+            <!-- Sobre -->
+            <div>
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white font-bold">P</div>
+                    <h3 class="text-xl font-bold text-white">Patrícia Pattas</h3>
+                </div>
+                <p class="text-sm mb-4">Transformando beleza em arte através da maquilhagem e do crochê. Qualidade, estilo e formação profissional.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-primary transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="hover:text-primary transition"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="hover:text-primary transition"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="hover:text-primary transition"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+
+            <!-- Links Rápidos -->
+            <div>
+                <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Navegação</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" onclick="router('services')" class="hover:text-primary transition">Serviços</a></li>
+                    <li><a href="#" onclick="router('shop')" class="hover:text-primary transition">Loja Virtual</a></li>
+                    <li><a href="#" onclick="router('multimedia')" class="hover:text-primary transition">Portfólio & Multimédia</a></li>
+                    <li><a href="#" onclick="router('blog')" class="hover:text-primary transition">Blog de Notícias</a></li>
+                    <li><a href="#" onclick="router('partners')" class="hover:text-primary transition">Parceiros & Vagas</a></li>
+                </ul>
+            </div>
+
+            <!-- Legal -->
+            <div>
+                <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Termos Legais</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" onclick="router('legal-terms')" class="hover:text-primary transition">Termos de Uso</a></li>
+                    <li><a href="#" onclick="router('legal-privacy')" class="hover:text-primary transition">Política de Privacidade</a></li>
+                    <li><a href="#" onclick="router('legal-refund')" class="hover:text-primary transition">Política de Reembolso</a></li>
+                    <li><a href="#" onclick="router('faq')" class="hover:text-primary transition">Perguntas Frequentes (FAQ)</a></li>
+                </ul>
+            </div>
+
+            <!-- Newsletter -->
+            <div>
+                <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Subscrição</h4>
+                <p class="text-xs mb-4">Subscreva para não perder promoções e atualizações.</p>
+                <form onsubmit="alert('Obrigado por subscrever!'); return false;" class="flex flex-col gap-2">
+                    <input type="email" placeholder="Seu e-mail" required class="bg-gray-800 border border-gray-700 text-white px-4 py-2 rounded focus:outline-none focus:border-primary text-sm">
+                    <button type="submit" class="bg-primary hover:bg-primaryDark text-white py-2 rounded text-sm font-semibold transition">Inscrever</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="container mx-auto px-4 border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
+            <p>&copy; 2024 Patrícia Pattas. Todos os direitos reservados.</p>
+            <div class="flex gap-4 mt-4 md:mt-0">
+                <span>Desenvolvido com <i class="fas fa-heart text-red-500"></i> para a beleza.</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPT DA APLICAÇÃO -->
+    <script>
+        // --- DADOS (Simulação de Banco de Dados) ---
+        const products = Array.from({ length: 60 }, (_, i) => ({
+            id: i + 1,
+            name: i % 2 === 0 ? `Kit Make Up Pro ${i+1}` : `Top Crochê Artesanal ${i+1}`,
+            category: i % 2 === 0 ? 'Maquilhagem' : 'Crochê',
+            price: (Math.random() * 5000 + 2000).toFixed(0),
+            image: i % 2 === 0 
+                ? 'https://images.unsplash.com/photo-1596462502278-27bfdd403348?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' 
+                : 'https://images.unsplash.com/photo-1619250907405-161036324867?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+            description: i % 2 === 0 ? "Alta cobertura e durabilidade para profissionais." : "Feito à mão com fios de algodão de alta qualidade."
+        }));
+
+        const services = [
+            { id: 1, title: "Maquilhagem Social", price: "15.000", desc: "Para festas e eventos." },
+            { id: 2, title: "Maquilhagem de Noiva", price: "50.000", desc: "Pacote completo com teste." },
+            { id: 3, title: "Curso Auto-Maquilhagem", price: "30.000", desc: "Aprenda a realçar sua beleza (1 dia)." },
+            { id: 4, title: "Curso Profissional", price: "150.000", desc: "Formação completa com certificado (1 mês)." },
+            { id: 5, title: "Entrega Express", price: "2.000", desc: "Entrega de produtos em Luanda." },
+            { id: 6, title: "Consultoria de Imagem", price: "20.000", desc: "Análise de coloração pessoal." }
+        ];
+
+        const blogPosts = [
+            { title: "5 Dicas para a Base Perfeita", date: "20 Out 2024", img: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=500&q=60" },
+            { title: "Tendências de Crochê para o Verão", date: "15 Out 2024", img: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=60" },
+            { title: "Cuidados Essenciais com a Pele", date: "10 Out 2024", img: "https://images.unsplash.com/photo-1556228720-1957be83f739?auto=format&fit=crop&w=500&q=60" }
+        ];
+
+        // --- ESTADO DA APLICAÇÃO ---
+        let cart = JSON.parse(localStorage.getItem('patricia_cart')) || [];
+        let chatHistory = [];
+
+        // --- ROTEADOR (Navegação SPA) ---
+        function router(page) {
+            const content = document.getElementById('app-content');
+            window.scrollTo(0, 0);
+            
+            let html = '';
+
+            switch(page) {
+                case 'home':
+                    html = renderHome();
+                    break;
+                case 'shop':
+                    html = renderShop();
+                    break;
+                case 'services':
+                    html = renderServices();
+                    break;
+                case 'booking':
+                    html = renderBooking();
+                    break;
+                case 'contact':
+                    html = renderContact();
+                    break;
+                case 'about':
+                    html = renderAbout();
+                    break;
+                case 'cart':
+                    html = renderCart();
+                    break;
+                case 'multimedia':
+                    html = renderMultimedia();
+                    break;
+                case 'blog':
+                    html = renderBlog();
+                    break;
+                case 'partners':
+                    html = renderPartners();
+                    break;
+                case 'faq':
+                    html = renderFAQ();
+                    break;
+                case 'legal-terms':
+                case 'legal-privacy':
+                case 'legal-refund':
+                    html = renderLegal(page);
+                    break;
+                default:
+                    html = renderHome();
+            }
+
+            content.innerHTML = `<div class="fade-in">${html}</div>`;
+            updateCartCount();
+        }
+
+        // --- RENDERIZADORES DE PÁGINAS ---
+
+        function renderHome() {
+            return `
+                <!-- Hero Section -->
+                <section class="relative bg-primaryDark text-white h-[500px] flex items-center">
+                    <div class="absolute inset-0 bg-black opacity-40"></div>
+                    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1522337660859-02fbefca4702?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80')] bg-cover bg-center mix-blend-overlay"></div>
+                    <div class="container mx-auto px-4 relative z-10 text-center md:text-left">
+                        <h1 class="text-4xl md:text-6xl font-bold mb-4">Realce sua Beleza <br> com Arte e Estilo</h1>
+                        <p class="text-lg md:text-xl mb-8 max-w-2xl">Maquilhagem profissional, cursos especializados e moda crochê exclusiva. A qualidade que você merece.</p>
+                        <div class="flex flex-col md:flex-row gap-4 justify-center md:justify-start">
+                            <button onclick="router('shop')" class="bg-white text-primaryDark px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition shadow-lg">Ver Produtos</button>
+                            <button onclick="router('booking')" class="border-2 border-white text-white px-8 py-3 rounded-full font-bold hover:bg-white hover:text-primaryDark transition">Agendar Agora</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Destaques -->
+                <section class="py-16 bg-white">
+                    <div class="container mx-auto px-4">
+                        <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Nossos Universos</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div class="bg-purple-50 p-8 rounded-2xl text-center hover:shadow-xl transition cursor-pointer" onclick="router('shop')">
+                                <div class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl"><i class="fas fa-magic"></i></div>
+                                <h3 class="text-xl font-bold mb-2">Maquilhagem</h3>
+                                <p class="text-gray-600">Produtos de alta qualidade e serviços para todas as ocasiões.</p>
+                            </div>
+                            <div class="bg-purple-50 p-8 rounded-2xl text-center hover:shadow-xl transition cursor-pointer" onclick="router('shop')">
+                                <div class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl"><i class="fas fa-mitten"></i></div>
+                                <h3 class="text-xl font-bold mb-2">Crochê</h3>
+                                <p class="text-gray-600">Peças exclusivas feitas à mão com amor e dedicação.</p>
+                            </div>
+                            <div class="bg-purple-50 p-8 rounded-2xl text-center hover:shadow-xl transition cursor-pointer" onclick="router('services')">
+                                <div class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl"><i class="fas fa-graduation-cap"></i></div>
+                                <h3 class="text-xl font-bold mb-2">Formação</h3>
+                                <p class="text-gray-600">Torne-se uma profissional com nossos cursos certificados.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Sobre Resumo -->
+                <section class="py-16 bg-secondary/30">
+                    <div class="container mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
+                        <div class="md:w-1/2">
+                            <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Patrícia Pattas" class="rounded-lg shadow-2xl">
+                        </div>
+                        <div class="md:w-1/2">
+                            <h2 class="text-3xl font-bold text-primaryDark mb-6">Sobre a Patrícia Pattas</h2>
+                            <p class="text-gray-700 mb-4 leading-relaxed">
+                                Nossa missão é elevar a autoestima através da arte. Com anos de experiência no mercado de beleza angolano, oferecemos um serviço personalizado e produtos de excelência.
+                            </p>
+                            <p class="text-gray-700 mb-6 leading-relaxed">
+                                Valorizamos a autenticidade, a inovação e o compromisso com cada cliente. Seja através de um pincel ou de uma agulha de crochê, criamos beleza.
+                            </p>
+                            <button onclick="router('about')" class="text-primary font-bold hover:underline">Ler nossa história completa &rarr;</button>
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
+        function renderShop() {
+            let itemsHtml = products.map(p => `
+                <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition group">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500">
+                        <span class="absolute top-2 right-2 bg-primary text-white text-xs font-bold px-2 py-1 rounded">${p.category}</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-gray-800 mb-1 truncate">${p.name}</h3>
+                        <p class="text-sm text-gray-500 mb-3 truncate">${p.description}</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-primaryDark font-bold text-lg">${p.price} Kz</span>
+                            <button onclick="addToCart(${p.id})" class="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-primaryDark transition">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            return `
+                <div class="container mx-auto px-4 py-8">
+                    <h2 class="text-3xl font-bold text-center mb-4 text-primaryDark">Loja Virtual</h2>
+                    
+                    <!-- Filtros -->
+                    <div class="flex flex-wrap justify-center gap-4 mb-8">
+                        <input type="text" id="searchProduct" placeholder="Buscar produto..." class="border border-purple-200 px-4 py-2 rounded-full focus:outline-none focus:border-primary w-full md:w-64" onkeyup="filterProducts()">
+                        <select class="border border-purple-200 px-4 py-2 rounded-full focus:outline-none focus:border-primary bg-white">
+                            <option value="all">Todas as Categorias</option>
+                            <option value="Maquilhagem">Maquilhagem</option>
+                            <option value="Crochê">Crochê</option>
+                        </select>
+                    </div>
+
+                    <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        ${itemsHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderServices() {
+            let list = services.map(s => `
+                <div class="flex flex-col md:flex-row justify-between items-center bg-white p-6 rounded-xl shadow mb-4 border-l-4 border-primary">
+                    <div class="mb-4 md:mb-0 text-center md:text-left">
+                        <h3 class="font-bold text-xl text-gray-800">${s.title}</h3>
+                        <p class="text-gray-500">${s.desc}</p>
+                    </div>
+                    <div class="flex flex-col md:flex-row items-center gap-4">
+                        <span class="font-bold text-2xl text-primaryDark">${s.price} Kz</span>
+                        <button onclick="router('booking')" class="bg-gray-800 text-white px-6 py-2 rounded-full hover:bg-gray-900 transition">Agendar</button>
+                    </div>
+                </div>
+            `).join('');
+
+            return `
+                <div class="container mx-auto px-4 py-8 max-w-4xl">
+                    <h2 class="text-3xl font-bold text-center mb-2 text-primaryDark">Nossos Serviços</h2>
+                    <p class="text-center text-gray-600 mb-10">Qualidade profissional em cada detalhe.</p>
+                    ${list}
+                </div>
+            `;
+        }
+
+        function renderBooking() {
+            return `
+                <div class="container mx-auto px-4 py-8 max-w-2xl">
+                    <div class="bg-white rounded-2xl shadow-xl p-8">
+                        <h2 class="text-3xl font-bold text-center mb-6 text-primaryDark">Agendamento Online</h2>
+                        <form onsubmit="handleBooking(event)" class="space-y-6">
+                            
+                            <!-- Zonas -->
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Selecione a Zona</label>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="zone" value="norte" class="peer sr-only" checked>
+                                        <div class="border-2 border-gray-200 rounded-lg p-4 text-center peer-checked:border-primary peer-checked:bg-purple-50 transition">
+                                            <i class="fas fa-map-marker-alt text-xl mb-2 text-primary"></i>
+                                            <p class="font-bold">Luanda Norte</p>
+                                        </div>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="zone" value="sul" class="peer sr-only">
+                                        <div class="border-2 border-gray-200 rounded-lg p-4 text-center peer-checked:border-primary peer-checked:bg-purple-50 transition">
+                                            <i class="fas fa-map-marker-alt text-xl mb-2 text-primary"></i>
+                                            <p class="font-bold">Luanda Sul</p>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Serviço -->
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Serviço</label>
+                                <select class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-primary focus:ring-primary">
+                                    ${services.map(s => `<option value="${s.title}">${s.title} - ${s.price} Kz</option>`).join('')}
+                                </select>
+                            </div>
+
+                            <!-- Data e Hora -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-bold text-gray-700 mb-2">Data</label>
+                                    <input type="date" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-primary">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-gray-700 mb-2">Horário</label>
+                                    <select class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-primary">
+                                        <option>09:00</option>
+                                        <option>10:00</option>
+                                        <option>11:00</option>
+                                        <option>14:00</option>
+                                        <option>15:00</option>
+                                        <option>16:00</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Dados Pessoais -->
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Seu Nome</label>
+                                <input type="text" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-primary" placeholder="Maria Silva">
+                            </div>
+
+                            <button type="submit" class="w-full bg-primary text-white font-bold py-4 rounded-lg hover:bg-primaryDark transition shadow-lg">Confirmar Agendamento via WhatsApp</button>
+                        </form>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderMultimedia() {
+            return `
+                <div class="container mx-auto px-4 py-8">
+                    <h2 class="text-3xl font-bold text-center mb-8 text-primaryDark">Multimédia & Dicas</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Simulação de Embeds de Redes Sociais -->
+                        <div class="bg-black rounded-xl h-96 flex items-center justify-center relative overflow-hidden group">
+                            <div class="absolute inset-0 bg-gray-800 flex items-center justify-center">
+                                <i class="fab fa-tiktok text-6xl text-white opacity-50"></i>
+                            </div>
+                            <div class="z-10 text-center">
+                                <p class="text-white font-bold mb-2">Tutorial de Sombra</p>
+                                <a href="https://tiktok.com" target="_blank" class="bg-white text-black px-4 py-2 rounded-full text-sm font-bold hover:bg-gray-200">Ver no TikTok</a>
+                            </div>
+                        </div>
+
+                        <div class="bg-black rounded-xl h-96 flex items-center justify-center relative overflow-hidden group">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-yellow-500 to-purple-600 opacity-80 flex items-center justify-center">
+                                <i class="fab fa-instagram text-6xl text-white opacity-50"></i>
+                            </div>
+                            <div class="z-10 text-center">
+                                <p class="text-white font-bold mb-2">Bastidores do Ensaio</p>
+                                <a href="https://instagram.com" target="_blank" class="bg-white text-pink-600 px-4 py-2 rounded-full text-sm font-bold hover:bg-gray-200">Ver no Instagram</a>
+                            </div>
+                        </div>
+
+                        <div class="bg-black rounded-xl h-96 flex items-center justify-center relative overflow-hidden group">
+                            <div class="absolute inset-0 bg-blue-700 opacity-80 flex items-center justify-center">
+                                <i class="fab fa-facebook text-6xl text-white opacity-50"></i>
+                            </div>
+                            <div class="z-10 text-center">
+                                <p class="text-white font-bold mb-2">Live: Dúvidas de Crochê</p>
+                                <a href="https://facebook.com" target="_blank" class="bg-white text-blue-700 px-4 py-2 rounded-full text-sm font-bold hover:bg-gray-200">Ver no Facebook</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderBlog() {
+            return `
+                <div class="container mx-auto px-4 py-8">
+                    <h2 class="text-3xl font-bold text-center mb-8 text-primaryDark">Blog de Notícias</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        ${blogPosts.map(post => `
+                            <div class="bg-white rounded-xl shadow overflow-hidden hover:shadow-lg transition">
+                                <img src="${post.img}" class="w-full h-48 object-cover">
+                                <div class="p-6">
+                                    <p class="text-xs text-primary font-bold mb-2">${post.date}</p>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-3">${post.title}</h3>
+                                    <p class="text-gray-600 text-sm mb-4">Descubra as novidades e dicas exclusivas para melhorar sua técnica e cuidar da sua beleza...</p>
+                                    <button class="text-primaryDark font-bold text-sm hover:underline">Ler Mais</button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderCart() {
+            if (cart.length === 0) {
+                return `
+                    <div class="container mx-auto px-4 py-16 text-center">
+                        <i class="fas fa-shopping-basket text-6xl text-gray-300 mb-4"></i>
+                        <h2 class="text-2xl font-bold text-gray-800 mb-2">Seu carrinho está vazio</h2>
+                        <p class="text-gray-500 mb-6">Explore nossa loja e encontre produtos incríveis.</p>
+                        <button onclick="router('shop')" class="bg-primary text-white px-8 py-3 rounded-full font-bold hover:bg-primaryDark">Ir para a Loja</button>
+                    </div>
+                `;
+            }
+
+            const total = cart.reduce((acc, item) => acc + parseFloat(item.price), 0).toFixed(0);
+
+            return `
+                <div class="container mx-auto px-4 py-8 max-w-4xl">
+                    <h2 class="text-3xl font-bold mb-8 text-primaryDark">Carrinho de Compras</h2>
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                        ${cart.map((item, index) => `
+                            <div class="flex items-center p-4 border-b border-gray-100">
+                                <img src="${item.image}" class="w-16 h-16 rounded object-cover mr-4">
+                                <div class="flex-1">
+                                    <h3 class="font-bold text-gray-800">${item.name}</h3>
+                                    <p class="text-sm text-gray-500">${item.category}</p>
+                                </div>
+                                <div class="font-bold text-primaryDark mr-4">${item.price} Kz</div>
+                                <button onclick="removeFromCart(${index})" class="text-red-400 hover:text-red-600"><i class="fas fa-trash"></i></button>
+                            </div>
+                        `).join('')}
+                        
+                        <div class="p-6 bg-purple-50 flex flex-col md:flex-row justify-between items-center">
+                            <div class="mb-4 md:mb-0">
+                                <p class="text-gray-600">Total a Pagar</p>
+                                <p class="text-3xl font-bold text-primaryDark">${total} Kz</p>
+                            </div>
+                            <button onclick="checkoutWhatsApp()" class="bg-green-500 text-white px-8 py-4 rounded-lg font-bold hover:bg-green-600 transition flex items-center gap-2 shadow-lg w-full md:w-auto justify-center">
+                                <i class="fab fa-whatsapp text-2xl"></i> Finalizar Compra no WhatsApp
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderPartners() {
+            return `
+                <div class="container mx-auto px-4 py-8">
+                    <div class="bg-gradient-to-r from-purple-100 to-white rounded-2xl p-8 mb-12 border border-purple-200">
+                        <h2 class="text-3xl font-bold text-center text-primaryDark mb-2">Publicidade & Vagas</h2>
+                        <p class="text-center text-gray-600 mb-8">Espaço dedicado a parceiros e oportunidades de emprego.</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <!-- Anúncio Exemplo 1 -->
+                            <div class="bg-white p-6 rounded-xl shadow border border-gray-100 flex items-center gap-4">
+                                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-xl">L</div>
+                                <div>
+                                    <h3 class="font-bold text-lg">Logística Express</h3>
+                                    <p class="text-sm text-gray-500 mb-2">Parceiro Oficial de Entregas</p>
+                                    <div class="flex gap-2">
+                                        <button class="bg-green-500 text-white text-xs px-3 py-1 rounded-full"><i class="fab fa-whatsapp"></i> Contato</button>
+                                    </div>
+                                </div>
+                            </div>
+                             <!-- Vaga -->
+                             <div class="bg-white p-6 rounded-xl shadow border border-gray-100 flex items-center gap-4">
+                                <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold text-xl"><i class="fas fa-briefcase"></i></div>
+                                <div>
+                                    <h3 class="font-bold text-lg">Vaga: Assistente de Loja</h3>
+                                    <p class="text-sm text-gray-500 mb-2">Local: Luanda Sul</p>
+                                    <button class="bg-primary text-white text-xs px-3 py-1 rounded-full">Enviar Currículo</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderContact() {
+            return `
+                <div class="container mx-auto px-4 py-8 max-w-2xl">
+                    <h2 class="text-3xl font-bold text-center text-primaryDark mb-8">Fale Conosco</h2>
+                    <div class="bg-white rounded-xl shadow-lg p-8">
+                        <form onsubmit="alert('Mensagem enviada com sucesso! A Patrícia responderá em breve.'); return false;" class="space-y-4">
+                            <input type="text" placeholder="Nome Completo" required class="w-full border border-gray-300 rounded px-4 py-3 focus:border-primary focus:outline-none">
+                            <input type="email" placeholder="E-mail" required class="w-full border border-gray-300 rounded px-4 py-3 focus:border-primary focus:outline-none">
+                            <input type="tel" placeholder="Telefone" class="w-full border border-gray-300 rounded px-4 py-3 focus:border-primary focus:outline-none">
+                            <textarea placeholder="Sua Mensagem" rows="4" required class="w-full border border-gray-300 rounded px-4 py-3 focus:border-primary focus:outline-none"></textarea>
+                            <button type="submit" class="w-full bg-primary text-white font-bold py-3 rounded hover:bg-primaryDark transition">Enviar Mensagem</button>
+                        </form>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderAbout() {
+             return `
+                <div class="container mx-auto px-4 py-12 max-w-3xl text-center">
+                    <h1 class="text-4xl font-bold text-primaryDark mb-6">Nossa Essência</h1>
+                    <div class="bg-white p-8 rounded-2xl shadow-lg mb-8">
+                        <i class="fas fa-heart text-4xl text-primary mb-4"></i>
+                        <h2 class="text-2xl font-bold mb-2">Missão</h2>
+                        <p class="text-gray-600">Empoderar mulheres e homens através da beleza e da arte manual, oferecendo produtos de excelência e formação que transforma vidas.</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-white p-8 rounded-2xl shadow-lg">
+                            <i class="fas fa-eye text-4xl text-primary mb-4"></i>
+                            <h2 class="text-xl font-bold mb-2">Visão</h2>
+                            <p class="text-gray-600">Ser a referência número um em Angola em cosmética integrada e moda artesanal.</p>
+                        </div>
+                        <div class="bg-white p-8 rounded-2xl shadow-lg">
+                            <i class="fas fa-gem text-4xl text-primary mb-4"></i>
+                            <h2 class="text-xl font-bold mb-2">Valores</h2>
+                            <p class="text-gray-600">Ética, Qualidade, Inovação, Respeito à diversidade e Amor pelo que fazemos.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderFAQ() {
+            return `
+                <div class="container mx-auto px-4 py-12 max-w-3xl">
+                    <h2 class="text-3xl font-bold text-center text-primaryDark mb-8">Perguntas Frequentes</h2>
+                    <div class="space-y-4">
+                        <details class="bg-white p-4 rounded-lg shadow cursor-pointer">
+                            <summary class="font-bold text-gray-800">Como funcionam as entregas?</summary>
+                            <p class="mt-2 text-gray-600">Realizamos entregas em toda Luanda via moto-táxi parceiro. Para outras províncias, utilizamos transportadoras locais.</p>
+                        </details>
+                        <details class="bg-white p-4 rounded-lg shadow cursor-pointer">
+                            <summary class="font-bold text-gray-800">Quais as formas de pagamento?</summary>
+                            <p class="mt-2 text-gray-600">Aceitamos Transferência IBAN, Multicaixa Express e Pagamento à vista na entrega (para zonas selecionadas).</p>
+                        </details>
+                         <details class="bg-white p-4 rounded-lg shadow cursor-pointer">
+                            <summary class="font-bold text-gray-800">Os produtos de crochê são pronta entrega?</summary>
+                            <p class="mt-2 text-gray-600">Temos algumas peças em stock, mas a maioria é feita sob encomenda com prazo de 3 a 5 dias.</p>
+                        </details>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderLegal(type) {
+            let title = "";
+            let content = "";
+            
+            if(type === 'legal-terms') { title = "Termos de Uso"; content = "Ao usar este site, você concorda com..."; }
+            if(type === 'legal-privacy') { title = "Política de Privacidade"; content = "Seus dados estão seguros conosco..."; }
+            if(type === 'legal-refund') { title = "Política de Reembolso"; content = "Aceitamos devoluções em até 7 dias..."; }
+
+            return `
+                <div class="container mx-auto px-4 py-12 max-w-3xl">
+                    <h2 class="text-3xl font-bold mb-6 text-gray-800">${title}</h2>
+                    <div class="bg-white p-8 rounded shadow text-gray-600 leading-relaxed">
+                        <p>${content}</p>
+                        <p class="mt-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- LÓGICA DO CARRINHO ---
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            cart.push(product);
+            localStorage.setItem('patricia_cart', JSON.stringify(cart));
+            updateCartCount();
+            
+            // Feedback Visual
+            const btn = event.currentTarget;
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i>';
+            btn.classList.replace('bg-primary', 'bg-green-500');
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+                btn.classList.replace('bg-green-500', 'bg-primary');
+            }, 1000);
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('patricia_cart', JSON.stringify(cart));
+            router('cart'); // Re-renderiza
+        }
+
+        function updateCartCount() {
+            document.getElementById('cart-count').innerText = cart.length;
+        }
+
+        function checkoutWhatsApp() {
+            let message = "Olá Patrícia! Gostaria de finalizar minha compra:%0A%0A";
+            let total = 0;
+            
+            cart.forEach(item => {
+                message += `- ${item.name} (${item.category}): ${item.price} Kz%0A`;
+                total += parseFloat(item.price);
+            });
+            
+            message += `%0ATotal: *${total.toFixed(0)} Kz*`;
+            window.open(`https://wa.me/244926837464?text=${message}`, '_blank');
+        }
+
+        function handleBooking(e) {
+            e.preventDefault();
+            // Lógica simples para pegar dados do form e enviar pro WhatsApp
+            const inputs = e.target.elements;
+            const msg = `Olá! Quero agendar:%0AServiço: ${inputs[2].value}%0AData: ${inputs[3].value} às ${inputs[4].value}%0AZona: ${inputs.zone.value}%0AClient: ${inputs[5].value}`;
+            window.open(`https://wa.me/244926837464?text=${msg}`, '_blank');
+        }
+
+        // --- LÓGICA DA ASSISTENTE PATRÍCIA (Chatbot Nativo) ---
+        function toggleChat() {
+            const win = document.getElementById('chat-window');
+            win.classList.toggle('hidden');
+            if(!win.classList.contains('hidden') && chatHistory.length === 0) {
+                addBotMessage("Olá! Sou a assistente virtual da Patrícia. Como posso ajudar? 😊");
+                addBotMessage("Posso falar sobre preços, agendamentos ou produtos.");
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const text = input.value.trim();
+            if(!text) return;
+
+            // Adiciona msg do usuário
+            addUserMessage(text);
+            input.value = '';
+
+            // Lógica "Nativa" de Resposta (Simulação de IA)
+            setTimeout(() => {
+                const lowerText = text.toLowerCase();
+                if(lowerText.includes('preço') || lowerText.includes('valor')) {
+                    addBotMessage("Nossos produtos variam entre 2.000 Kz e 10.000 Kz. Serviços começam em 15.000 Kz. Quer ver a lista completa na loja?");
+                } else if(lowerText.includes('agendar') || lowerText.includes('marcação')) {
+                    addBotMessage("Para agendar, acesse a página de Agendamento no menu. Temos horários disponíveis para Luanda Norte e Sul! 📅");
+                } else if(lowerText.includes('crochê') || lowerText.includes('roupa')) {
+                    addBotMessage("Amo crochê! 😍 Nossas peças são feitas à mão. Se você escolher uma peça na loja, posso preparar o pedido agora.");
+                } else if(lowerText.includes('olá') || lowerText.includes('oi')) {
+                    addBotMessage("Olá! Tudo bem? Como posso te deixar mais linda hoje?");
+                } else {
+                    addBotMessage("Entendi. Para assuntos mais complexos, recomendo clicar no botão do WhatsApp e falar diretamente com a Patrícia humana! 😉");
+                }
+            }, 800);
+        }
+
+        function addUserMessage(text) {
+            const div = document.createElement('div');
+            div.className = 'chat-bubble chat-user';
+            div.innerText = text;
+            document.getElementById('chat-messages').appendChild(div);
+            scrollToBottom();
+        }
+
+        function addBotMessage(text) {
+            const div = document.createElement('div');
+            div.className = 'chat-bubble chat-bot';
+            div.innerText = text;
+            document.getElementById('chat-messages').appendChild(div);
+            scrollToBottom();
+        }
+
+        function scrollToBottom() {
+            const container = document.getElementById('chat-messages');
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+        
+        function filterProducts() {
+            const term = document.getElementById('searchProduct').value.toLowerCase();
+            const grid = document.getElementById('product-grid');
+            // Nota: Em uma app real, refaria o renderShop, aqui é simplificado
+            if(term.length > 0) {
+                // Re-filtrar array e renderizar (versão simples: apenas recarrega loja com filtro se implementado totalmente, 
+                // para este exemplo, vamos apenas alertar visualmente que a busca funciona recarregando a view filtrada na logica real)
+                // Implementação visual rápida:
+                const cards = grid.getElementsByClassName('group');
+                Array.from(cards).forEach(card => {
+                    const title = card.querySelector('h3').innerText.toLowerCase();
+                    if(title.includes(term)) card.style.display = 'block';
+                    else card.style.display = 'none';
+                });
+            } else {
+                 const cards = grid.getElementsByClassName('group');
+                 Array.from(cards).forEach(card => card.style.display = 'block');
+            }
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            router('home');
+            updateCartCount();
+        });
+
+    </script>
+</body>
+</html>
