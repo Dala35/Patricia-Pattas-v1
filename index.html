@@ -63,6 +63,19 @@
             width: 100%;   /* Largura total do container */
             object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer */
         }
+        
+        /* Estilo para as fotos da galeria Momentos */
+        .img-momento {
+            height: 250px;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 0.75rem;
+            transition: transform 0.3s ease;
+        }
+        .img-momento:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
@@ -97,9 +110,9 @@
             <!-- Ícones de Ação -->
             <div class="flex items-center gap-4">
                 <div class="hidden md:flex gap-3 text-primary">
-                    <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram hover:scale-110 transition"></i></a>
-                    <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook hover:scale-110 transition"></i></a>
-                    <a href="https://tiktok.com" target="_blank"><i class="fab fa-tiktok hover:scale-110 transition"></i></a>
+                    <a href="https://www.instagram.com/patricia_makeup_e_croche?igsh=ZHFsd2FwMjc4Z2V2" target="_blank"><i class="fab fa-instagram hover:scale-110 transition"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=100010365824689&locale=pt_BR" target="_blank"><i class="fab fa-facebook hover:scale-110 transition"></i></a>
+                    <a href="https://www.tiktok.com/@kawaii..97?_r=1&_t=ZS-93IDSs92war" target="_blank"><i class="fab fa-tiktok hover:scale-110 transition"></i></a>
                 </div>
 
                 <!-- Carrinho -->
@@ -180,10 +193,10 @@
                 </div>
                 <p class="text-sm mb-4">Transformando beleza em arte através da maquilhagem e do crochê. Qualidade, estilo e formação profissional.</p>
                 <div class="flex gap-4">
-                    <a href="#" class="hover:text-primary transition"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="hover:text-primary transition"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="hover:text-primary transition"><i class="fab fa-tiktok"></i></a>
-                    <a href="#" class="hover:text-primary transition"><i class="fas fa-envelope"></i></a>
+                    <a href="https://www.instagram.com/patricia_makeup_e_croche?igsh=ZHFsd2FwMjc4Z2V2" target="_blank" class="hover:text-primary transition"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=100010365824689&locale=pt_BR" target="_blank" class="hover:text-primary transition"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.tiktok.com/@kawaii..97?_r=1&_t=ZS-93IDSs92war" target="_blank" class="hover:text-primary transition"><i class="fab fa-tiktok"></i></a>
+                    <a href="mailto:pattasvendas@gmail.com" class="hover:text-primary transition"><i class="fas fa-envelope"></i></a>
                 </div>
             </div>
 
@@ -215,8 +228,7 @@
                 <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Subscrição</h4>
                 <p class="text-xs mb-4">Subscreva para não perder promoções e atualizações.</p>
                 <form id="newsletter-form" class="flex flex-col gap-2">
-                    <!-- INSTRUÇÃO: Substitua o email abaixo pelo seu email real -->
-                    <input type="hidden" name="_to" value="SEU_EMAIL_AQUI@EXEMPLO.COM">
+                    <input type="hidden" name="_to" value="pattasvendas@gmail.com">
                     <input type="email" name="email" placeholder="Seu e-mail" required class="bg-gray-800 border border-gray-700 text-white px-4 py-2 rounded focus:outline-none focus:border-primary text-sm">
                     <button type="submit" class="bg-primary hover:bg-primaryDark text-white py-2 rounded text-sm font-semibold transition flex justify-center items-center">
                         <span id="newsletter-btn-text">Inscrever</span>
@@ -227,7 +239,7 @@
         </div>
         
         <div class="container mx-auto px-4 border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
-            <p>&copy; 2024 Patrícia Pattas. Todos os direitos reservados.</p>
+            <p>&copy; 2026 Patrícia Pattas. Todos os direitos reservados.</p>
             <div class="flex gap-4 mt-4 md:mt-0">
                 <span>Desenvolvido com <i class="fas fa-heart text-red-500"></i> para a beleza.</span>
             </div>
@@ -237,7 +249,7 @@
     <!-- SCRIPT DA APLICAÇÃO -->
     <script>
         // --- CONFIGURAÇÃO GLOBAL ---
-        const SITE_EMAIL = "SEU_EMAIL_AQUI@EXEMPLO.COM"; 
+        const SITE_EMAIL = "pattasvendas@gmail.com"; 
 
         // --- BANCO DE DADOS DE PRODUTOS (MANUAL PARA FÁCIL EDIÇÃO) ---
         // Aqui você pode editar o NOME, PREÇO e LINK DA IMAGEM de cada produto.
@@ -522,21 +534,64 @@
         }
 
         function renderMultimedia() {
+            // Imagens para a galeria Momentos
+            const fotosMomentos = [
+                "https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=500&q=80",
+                "https://images.unsplash.com/photo-1512207128881-1baee87126fb?auto=format&fit=crop&w=500&q=80",
+                "https://images.unsplash.com/photo-1627292441194-013061e89278?auto=format&fit=crop&w=500&q=80",
+                "https://images.unsplash.com/photo-1588513364214-41d4c2057d81?auto=format&fit=crop&w=500&q=80",
+                "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?auto=format&fit=crop&w=500&q=80",
+                "https://images.unsplash.com/photo-1596462502278-27bfdd403cc2?auto=format&fit=crop&w=500&q=80",
+                "https://images.unsplash.com/photo-1631214524020-7e18db9a8f92?auto=format&fit=crop&w=500&q=80",
+                "https://images.unsplash.com/photo-1607542730303-34e76c11b15c?auto=format&fit=crop&w=500&q=80"
+            ];
+
             return `
                 <div class="container mx-auto px-4 py-8">
                     <h2 class="text-3xl font-bold text-center mb-8 text-primaryDark">Multimédia & Dicas</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="bg-black rounded-xl h-96 flex items-center justify-center relative overflow-hidden group">
-                            <div class="absolute inset-0 bg-gray-800 flex items-center justify-center"><i class="fab fa-tiktok text-6xl text-white opacity-50"></i></div>
-                            <div class="z-10 text-center"><p class="text-white font-bold mb-2">Tutorial de Sombra</p><a href="https://tiktok.com" target="_blank" class="bg-white text-black px-4 py-2 rounded-full text-sm font-bold hover:bg-gray-200">Ver no TikTok</a></div>
+                    
+                    <!-- Vídeos em Destaque (Embeds) -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+                        <!-- TikTok -->
+                        <div class="bg-black rounded-xl h-[550px] flex items-center justify-center relative overflow-hidden shadow-lg border border-gray-900">
+                             <iframe src="https://www.tiktok.com/embed/v2/7591613718400601400" class="w-full h-full border-0" allowfullscreen scrolling="no" allow="encrypted-media;"></iframe>
                         </div>
-                        <div class="bg-black rounded-xl h-96 flex items-center justify-center relative overflow-hidden group">
-                            <div class="absolute inset-0 bg-gradient-to-tr from-yellow-500 to-purple-600 opacity-80 flex items-center justify-center"><i class="fab fa-instagram text-6xl text-white opacity-50"></i></div>
-                            <div class="z-10 text-center"><p class="text-white font-bold mb-2">Bastidores do Ensaio</p><a href="https://instagram.com" target="_blank" class="bg-white text-pink-600 px-4 py-2 rounded-full text-sm font-bold hover:bg-gray-200">Ver no Instagram</a></div>
+                        
+                        <!-- Facebook Reel (Link 1 Novo) -->
+                        <div class="bg-white rounded-xl h-[550px] flex items-center justify-center relative overflow-hidden shadow-lg border border-gray-100">
+                             <iframe src="https://www.facebook.com/plugins/video.php?height=550&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F773125141667597&show_text=false&width=308&t=0" width="100%" height="100%" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
                         </div>
-                        <div class="bg-black rounded-xl h-96 flex items-center justify-center relative overflow-hidden group">
-                            <div class="absolute inset-0 bg-blue-700 opacity-80 flex items-center justify-center"><i class="fab fa-facebook text-6xl text-white opacity-50"></i></div>
-                            <div class="z-10 text-center"><p class="text-white font-bold mb-2">Live: Dúvidas de Crochê</p><a href="https://facebook.com" target="_blank" class="bg-white text-blue-700 px-4 py-2 rounded-full text-sm font-bold hover:bg-gray-200">Ver no Facebook</a></div>
+
+                        <!-- Instagram Reel (Atualizado com o link correto) -->
+                        <div class="video-card bg-white border border-gray-100 rounded-2xl p-4 shadow-lg hover:shadow-xl transition duration-300 h-[550px] flex flex-col">
+                            <div class="flex items-center gap-2 mb-3 text-[#E1306C] font-bold">
+                                <i class="fab fa-instagram text-xl"></i>
+                                <span>Instagram Reels</span>
+                            </div>
+                            <div class="flex-grow relative overflow-hidden rounded-xl">
+                                <iframe 
+                                    src="https://www.instagram.com/reel/DSKJORdjp4L/embed" 
+                                    class="absolute top-0 left-0 w-full h-full border-0"
+                                    allowtransparency="true" 
+                                    allowfullscreen="true" 
+                                    scrolling="no">
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seção Momentos Patrícia Pattas -->
+                    <div class="mt-12">
+                        <div class="text-center mb-8">
+                            <h3 class="text-2xl md:text-3xl font-bold text-primaryDark mb-2">Momentos Patrícia Pattas</h3>
+                            <p class="text-gray-500">Um olhar sobre a nossa arte e dia-a-dia.</p>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            ${fotosMomentos.map(img => `
+                                <div class="overflow-hidden rounded-xl shadow-md">
+                                    <img src="${img}" class="img-momento" alt="Momento Patrícia Pattas">
+                                </div>
+                            `).join('')}
                         </div>
                     </div>
                 </div>
@@ -644,8 +699,7 @@
                     <h2 class="text-3xl font-bold text-center text-primaryDark mb-8">Fale Conosco</h2>
                     <div class="bg-white rounded-xl shadow-lg p-8">
                         <form id="contact-form" class="space-y-4">
-                            <!-- INSTRUÇÃO: Substitua o email abaixo pelo seu email real -->
-                            <input type="hidden" name="_to" value="SEU_EMAIL_AQUI@EXEMPLO.COM">
+                            <input type="hidden" name="_to" value="pattasvendas@gmail.com">
                             <input type="text" name="name" placeholder="Nome Completo" required class="w-full border border-gray-300 rounded px-4 py-3 focus:border-primary focus:outline-none">
                             <input type="email" name="email" placeholder="E-mail" required class="w-full border border-gray-300 rounded px-4 py-3 focus:border-primary focus:outline-none">
                             <input type="tel" name="phone" placeholder="Telefone (+244)" class="w-full border border-gray-300 rounded px-4 py-3 focus:border-primary focus:outline-none">
