@@ -669,11 +669,22 @@
                             <div class="prose prose-purple max-w-none text-gray-700 leading-relaxed">
                                 ${post.fullContent}
                             </div>
-                            <div class="mt-8 border-t pt-6 flex justify-between items-center">
-                                <span class="font-bold text-gray-800">Gostou deste artigo?</span>
-                                <div class="flex gap-2">
-                                    <button onclick="shareArticleFacebook()" class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 flex items-center justify-center cursor-pointer" title="Partilhar no Facebook"><i class="fab fa-facebook-f"></i></button>
-                                    <button onclick="shareArticleWhatsApp('${post.title.replace(/'/g, "\\'")}')" class="w-10 h-10 rounded-full bg-green-100 text-green-600 hover:bg-green-200 flex items-center justify-center cursor-pointer" title="Partilhar no WhatsApp"><i class="fab fa-whatsapp"></i></button>
+                            <!-- Seção de Interação e Links Reais -->
+                            <div class="mt-8 border-t pt-6">
+                                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                                    <!-- Botões de Partilha -->
+                                    <div class="flex items-center gap-2">
+                                        <span class="font-bold text-gray-800">Partilhar:</span>
+                                        <button onclick="shareArticleFacebook()" class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 flex items-center justify-center transition" title="Partilhar no Facebook"><i class="fab fa-facebook-f"></i></button>
+                                        <button onclick="shareArticleWhatsApp('${post.title.replace(/'/g, "\\'")}')" class="w-10 h-10 rounded-full bg-green-100 text-green-600 hover:bg-green-200 flex items-center justify-center transition" title="Partilhar no WhatsApp"><i class="fab fa-whatsapp"></i></button>
+                                    </div>
+                                    
+                                    <!-- Links Reais do Perfil (Implementação Solicitada) -->
+                                    <div class="flex items-center gap-3 bg-purple-50 px-4 py-2 rounded-full border border-purple-100">
+                                        <span class="font-bold text-gray-700 text-sm">Comente nas redes:</span>
+                                        <a href="https://www.facebook.com/ateliermakeupecrochet?locale=pt_BR" target="_blank" class="text-blue-600 hover:scale-110 transition" title="Ir para Página do Facebook"><i class="fab fa-facebook text-xl"></i></a>
+                                        <a href="https://wa.me/244926837464" target="_blank" class="text-green-500 hover:scale-110 transition" title="Falar no WhatsApp Oficial"><i class="fab fa-whatsapp text-xl"></i></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -744,7 +755,8 @@
                                     <div><h3 class="font-bold text-lg">Vaga: Assistente de Loja</h3><p class="text-sm text-gray-500">Local: Luanda Sul (Patrícia Pattas Shop)</p></div>
                                 </div>
                                 <form id="job-form" class="border-t pt-4 mt-4" enctype="multipart/form-data">
-                                    <input type="hidden" name="_to" value="${SITE_EMAIL}">
+                                    <!-- IMPLEMENTAÇÃO 1: Email Real para Candidatura -->
+                                    <input type="hidden" name="_to" value="angelinapatas97@gmail.com">
                                     <input type="hidden" name="_subject" value="Nova Candidatura - Patrícia Pattas">
                                     <input type="hidden" name="_captcha" value="false">
                                     <input type="hidden" name="_autoresponse" value="Recebemos sua candidatura. Entraremos em contacto se o perfil for compatível. Boa sorte!">
