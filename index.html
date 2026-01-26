@@ -113,6 +113,11 @@
                     <a href="https://www.tiktok.com/@kawaii..97?_r=1&_t=ZS-93IDSs92war" target="_blank"><i class="fab fa-tiktok hover:scale-110 transition"></i></a>
                 </div>
 
+                <!-- Botão Tela Cheia (NOVO) -->
+                <button onclick="toggleFullScreen()" class="text-gray-600 hover:text-primary transition" title="Tela Cheia">
+                    <i id="fullscreen-icon" class="fas fa-expand text-xl"></i>
+                </button>
+
                 <!-- Carrinho -->
                 <button onclick="router('cart')" class="relative text-primaryDark hover:text-primary transition">
                     <i class="fas fa-shopping-bag text-2xl"></i>
@@ -221,12 +226,18 @@
                 </ul>
             </div>
 
-            <!-- Newsletter (Real com FormSubmit) -->
+            <!-- Newsletter (Com Mensagem Interna) -->
             <div>
                 <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Subscrição</h4>
                 <p class="text-xs mb-4">Subscreva para não perder promoções e atualizações.</p>
                 <form id="newsletter-form" class="flex flex-col gap-2">
                     <input type="hidden" name="_to" value="angelinapatas97@gmail.com">
+                    
+                    <!-- IMPLEMENTAÇÃO 1: Mensagem personalizada interna -->
+                    <input type="hidden" name="_subject" value="🌟 Nova Subscrição VIP - Site Patrícia Pattas">
+                    <input type="hidden" name="Notificacao_Interna" value="Olá Patrícia! Um novo utilizador solicitou inscrição na lista de promoções e novidades do site. Adicione este contacto à lista VIP.">
+                    <input type="hidden" name="_autoresponse" value="Obrigada por subscrever! Agora você faz parte da lista exclusiva da Patrícia Pattas. Em breve enviaremos novidades.">
+                    
                     <input type="email" name="email" placeholder="Seu e-mail" required class="bg-gray-800 border border-gray-700 text-white px-4 py-2 rounded focus:outline-none focus:border-primary text-sm">
                     <button type="submit" class="bg-primary hover:bg-primaryDark text-white py-2 rounded text-sm font-semibold transition flex justify-center items-center">
                         <span id="newsletter-btn-text">Inscrever</span>
@@ -250,7 +261,6 @@
         const SITE_EMAIL = "angelinapatas97@gmail.com"; 
 
         // --- BANCO DE DADOS DE PRODUTOS ---
-        
         const catalogoMaquilhagem = [
             { name: "Base Matte Velvet", price: "4.500", img: "https://images.unsplash.com/photo-1596462502278-27bfdd403cc2?auto=format&fit=crop&w=500&q=80" },
             { name: "Batom Líquido Red", price: "2.500", img: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=500&q=80" },
@@ -261,7 +271,6 @@
             { name: "Blush Pêssego", price: "2.800", img: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=500&q=80" },
             { name: "Delineador Caneta", price: "1.500", img: "https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?auto=format&fit=crop&w=500&q=80" }
         ];
-
         const catalogoCroche = [
             { name: "Conjunto de saia e calça", price: "30.000", img: "https://scontent-cpt1-1.xx.fbcdn.net/v/t39.30808-6/470870945_2269706376718201_1226928014039339194_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeEJTyYp1a_Z0YxZS_yvIE1zycB9OyvKqErJwH07K8qoSn1r87GvFGSjs4zDOrfBzo-hPdlwp_MyfPwgtcnTnNKr&_nc_ohc=ialtoukNPl0Q7kNvwF-MWxV&_nc_oc=AdnKw2lQnmJNdmKr05oORaB1H3qapK2beBGYCcspBUuBHB5Lk17whljqOg0wYx5113s7d2yX8zUHxKigxWVZwHAx&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=14p1UVElnNdSQBxmH0AaJQ&oh=00_AfqIDBudx40ZGvGatZmvYF-UG7U83CQ-t6FVItmDRB_6EQ&oe=697DB349" },
             { name: "Conjunto de Praia", price: "18.000", img: "https://scontent-cpt1-1.xx.fbcdn.net/v/t1.6435-9/171847438_1353815051640676_4439554293050690979_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeH8sC59_CH8LYrcIP0aGqXnZkoAuHaqG-pmSgC4dqob6g3qagrgPuL1IN-mPXcaepyEb3BPXdmfK-zcdeQpOUQQ&_nc_ohc=WWoQe2tmq_IQ7kNvwG850nd&_nc_oc=Adnf2-hNKyTsKkixdDVsopIFSKz1KiSpJ7aA-TB-fhs3YHCzMXiRLiYTctW-xbvGyzP9vgI2c_YfS65sLINcC8dC&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=efUyVvj_Lpf9ZdN3WSi65w&oh=00_Afr1LNJhKtd0tDz0EWsVGy3xC2MVorH5uWU-QaA_SdJ_zg&oe=699F18CD" },
@@ -270,35 +279,30 @@
             { name: "Crop Top Festival", price: "4.500", img: "https://scontent-cpt1-1.xx.fbcdn.net/v/t1.6435-9/172670460_1355466368142211_3019448796378848027_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeG4UnvU4obrvHjN9ovUd0-MeieiN4g-wFR6J6I3iD7AVC5cwpBu8jMAaO9PxcQL0gMpNJAM4YEaYdVyVmR1meGD&_nc_ohc=loxu_E3pTrMQ7kNvwEGz-Qi&_nc_oc=Adktqy-9Ew46o7vlYedzZtnH__Q98jf8OCIeDYtPTKxNbGttw5h40Uq5F2EKUbiRRnkMCZnfbhdJoFmHJyDe_3qL&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=jMgSfh4P2QYlcNDFa8QE5A&oh=00_AfokJbNGyQyu3KoxqkRhq5WbUL4v1_07GDbu6aMwo38ytw&oe=699F3641" },
             { name: "Bolsa de Ombro Trama", price: "6.000", img: "https://scontent-cpt1-1.xx.fbcdn.net/v/t1.6435-9/177013438_1363531564002358_1945971796500641884_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeGXmNcalP7KmCzJQrD60DiI_zckabiZQiz_NyRpuJlCLCDNJayx7Hv-ZUlcz81qxsUf9-OSwOVeVOFYKZZrLNrh&_nc_ohc=yz8eaUHsNEwQ7kNvwGktA_m&_nc_oc=AdnBo19j0VZHGzUeXhdBQJax2oVzEMicVMSOLR5JNAqo-scROkDnRNFHZQZ-DvfyBpF35WHqZyduvuXfe2TjpCLK&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=3lS-gOY-pLPbyKhZBh6gPw&oh=00_AfocOB1BXfPz1R_nRVxmlARl2g9u6THe3KbxB9p1fiTBrQ&oe=699F2812" }
         ];
-
         const catalogoSkincare = [
             { name: "Sérum Vitamina C", price: "6.500", img: "https://images.unsplash.com/photo-1570194065650-d99fb4b8ccb0?auto=format&fit=crop&w=500&q=80" },
             { name: "Hidratante Facial Gel", price: "4.000", img: "https://images.unsplash.com/photo-1608248597279-f99d160bfbc8?auto=format&fit=crop&w=500&q=80" },
             { name: "Protetor Solar FPS 50", price: "7.000", img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=500&q=80" },
             { name: "Tónico Adstringente", price: "3.500", img: "https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?auto=format&fit=crop&w=500&q=80" }
         ];
-
         const catalogoCabelos = [
             { name: "Óleo Reparador Pontas", price: "3.000", img: "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=500&q=80" },
             { name: "Máscara Hidratação Profunda", price: "5.500", img: "https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?auto=format&fit=crop&w=500&q=80" },
             { name: "Shampoo Sem Sulfato", price: "4.000", img: "https://images.unsplash.com/photo-1590439471364-192aa70c0b53?auto=format&fit=crop&w=500&q=80" },
             { name: "Condicionador Reconstrutor", price: "4.200", img: "https://images.unsplash.com/photo-1626388476602-5e60808a54f0?auto=format&fit=crop&w=500&q=80" }
         ];
-
         const catalogoPerfumes = [
             { name: "Eau de Parfum Floral", price: "15.000", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=500&q=80" },
             { name: "Colónia Fresh Citrus", price: "8.000", img: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=500&q=80" },
             { name: "Perfume Amadeirado", price: "18.000", img: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=500&q=80" },
             { name: "Body Splash Vanilla", price: "5.000", img: "https://images.unsplash.com/photo-1615162489823-c533e4b48d2e?auto=format&fit=crop&w=500&q=80" }
         ];
-
         const catalogoUnhas = [
             { name: "Esmalte Gel Nude", price: "2.000", img: "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=500&q=80" },
             { name: "Kit Unhas Postiças", price: "3.500", img: "https://images.unsplash.com/photo-1632516643720-e7f5d7d6ecc9?auto=format&fit=crop&w=500&q=80" },
             { name: "Alicate Profissional", price: "4.000", img: "https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?auto=format&fit=crop&w=500&q=80" },
             { name: "Base Fortalecedora", price: "1.800", img: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=500&q=80" }
         ];
-
         const catalogoAcessorios = [
             { name: "Kit Pincéis Pro", price: "10.000", img: "https://images.unsplash.com/photo-1590219717156-f5b248a31828?auto=format&fit=crop&w=500&q=80" },
             { name: "Esponja Blender", price: "1.200", img: "https://images.unsplash.com/photo-1627995874404-e3906a537f86?auto=format&fit=crop&w=500&q=80" },
@@ -310,8 +314,6 @@
         const products = [];
         function generateProducts() {
             let idCounter = 1;
-            
-            // Função auxiliar para adicionar os produtos das listas acima ao catálogo geral
             const processCategory = (list, categoryName) => {
                 list.forEach(item => {
                     products.push({
@@ -324,8 +326,6 @@
                     });
                 });
             };
-
-            // Processando todas as categorias
             processCategory(catalogoMaquilhagem, 'Maquilhagem');
             processCategory(catalogoCroche, 'Crochê');
             processCategory(catalogoSkincare, 'Skincare');
@@ -345,10 +345,55 @@
             { id: 6, title: "Consultoria de Imagem", price: "20.000", desc: "Análise de coloração pessoal." }
         ];
 
+        // IMPLEMENTAÇÃO 2: Estrutura de Blog Expandida
         const blogPosts = [
-            { title: "5 Dicas para a Base Perfeita", date: "20 Janeiro 2026", img: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=500&q=60" },
-            { title: "Tendências de Crochê para o Verão", date: "15 Janeiro 2026", img: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=60" },
-            { title: "Cuidados Essenciais com a Pele", date: "10 Janeiro 2026", img: "https://images.unsplash.com/photo-1556228720-1957be83f739?auto=format&fit=crop&w=500&q=60" }
+            { 
+                id: 1,
+                title: "5 Dicas para a Base Perfeita", 
+                date: "20 Janeiro 2026", 
+                img: "https://scontent-cpt1-1.xx.fbcdn.net/v/t39.30808-6/469559368_18434619232078958_8086162617319672375_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeHCWGbPQfoiaTV1FzqaUGRR_JyOSWGop0j8nI5JYainSASDg44Bc3EBS_6yj10hQjWmZcrAtoXisO8k2qYEouMg&_nc_ohc=B69CYZXWvk4Q7kNvwHY2hxk&_nc_oc=AdkxR0Z9LlQHHnUIJt3PS2agV21jDcd0UJtVwUO1sfApXYHctNd6TONup0BWDLQacYZQsIG7RfXcMBRYBCOwGmFl&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=JkpWbD99QG-FBkao_LprJg&oh=00_AfqyfMpIRA5WuKWvtT-qc9rPgoBJyW7Hi4QRSKierBFxSA&oe=697DB680",
+                fullContent: `
+                    <p class="mb-4">Conseguir aquela pele de porcelana não é impossível. O segredo está na preparação e na técnica de aplicação. Aqui estão as 5 dicas de ouro que usamos no atelier Patrícia Pattas:</p>
+                    <ul class="list-disc pl-5 mb-4 space-y-2">
+                        <li><strong>1. Hidratação é a Chave:</strong> Nunca aplique base em pele seca. Use um hidratante adequado ao seu tipo de pele 5 minutos antes.</li>
+                        <li><strong>2. O Primer Certo:</strong> Se tens poros dilatados, usa um primer de silicone. Se a pele é seca, opta por um luminoso.</li>
+                        <li><strong>3. Menos é Mais:</strong> Começa com pouca quantidade no centro do rosto e espalha para fora. Isso evita o efeito máscara.</li>
+                        <li><strong>4. Esponja Húmida:</strong> Para um acabamento natural, dá batidinhas com a esponja húmida (tipo Beauty Blender) após aplicar com pincel.</li>
+                        <li><strong>5. Sele com Pó:</strong> Na zona T (testa, nariz e queixo), usa um pó solto fino para garantir que a base dura o dia todo no calor de Angola.</li>
+                    </ul>
+                    <p>Experimenta estas dicas e conta-nos o resultado!</p>
+                `
+            },
+            { 
+                id: 2,
+                title: "Tendências de Crochê para o Verão", 
+                date: "15 Janeiro 2026", 
+                img: "https://scontent-cpt1-1.xx.fbcdn.net/v/t39.30808-6/481276868_2423733901328858_8914340366746669761_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=3a1ebe&_nc_eui2=AeG9EC0dUayM-nm-qvMC10xbilDISyf0ljyKUMhLJ_SWPJaB_gwO7HzDeYSaeAeNWgCMehfBl2WUUHpVhCMxV019&_nc_ohc=be8zGQxU4BkQ7kNvwE0jbPL&_nc_oc=AdkNvxPQbclozEjbX9pck8a9bWgacHDtZ-2e-LsbbZzkVxFIynUObrtahVv2GVlGogK06WEE7zOPZJQO7iW0eKtK&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=QyhktIZOxFg9LxWs2Tg-6A&oh=00_AfpeGEQBtLG7VhewpXJoW9AGJdcpg4LG6lwln2ZjVa_aGA&oe=697DC58A",
+                fullContent: `
+                    <p class="mb-4">O crochê deixou de ser "coisa de avó" e invadiu as passarelas e as praias de Luanda. Neste verão, a aposta é na leveza e nas cores vibrantes.</p>
+                    <h4 class="font-bold mt-4 mb-2">O que está em alta?</h4>
+                    <p class="mb-2"><strong>Saídas de Praia Longas:</strong> Vestidos longos com pontos abertos são elegantes e frescos.</p>
+                    <p class="mb-2"><strong>Biquínis Micro:</strong> O crochê permite modelagens únicas que se ajustam ao corpo.</p>
+                    <p class="mb-2"><strong>Conjuntos Color Block:</strong> Misturar roxo com laranja ou verde com rosa é a tendência do momento.</p>
+                    <p class="mt-4">No nosso atelier, usamos fios 100% algodão para garantir que a peça respire e não esquente demasiado ao sol.</p>
+                `
+            },
+            { 
+                id: 3,
+                title: "Cuidados Essenciais com a Pele", 
+                date: "10 Janeiro 2026", 
+                img: "https://www.primor.eu/blog/pt/wp-content/uploads/2025/01/RUTINA-FACIAL-NEGRAS-1200x675.jpg",
+                fullContent: `
+                    <p class="mb-4">Uma maquilhagem bonita começa numa pele saudável. Segue este ritual simples para manteres o brilho natural:</p>
+                    <ol class="list-decimal pl-5 mb-4 space-y-2">
+                        <li><strong>Limpeza Dupla:</strong> À noite, usa um óleo de limpeza seguido de um gel. Isso remove maquilhagem e poluição profundamente.</li>
+                        <li><strong>Tonificar:</strong> Equilibra o pH da pele após a lavagem.</li>
+                        <li><strong>Sérum de Vitamina C:</strong> Essencial para combater manchas e dar luminosidade (temos disponível na loja!).</li>
+                        <li><strong>Proteção Solar:</strong> O passo mais importante. Em África, o sol não perdoa. Usa FPS 50 todos os dias, mesmo em casa.</li>
+                    </ol>
+                    <p>A consistência é o segredo. Cuida de ti todos os dias.</p>
+                `
+            }
         ];
 
         // --- ESTADO DA APLICAÇÃO ---
@@ -356,7 +401,8 @@
         let chatHistory = [];
 
         // --- ROTEADOR (Navegação SPA) ---
-        function router(page) {
+        // Atualizado para aceitar parâmetros (para abrir o blog)
+        function router(page, param = null) {
             const content = document.getElementById('app-content');
             window.scrollTo(0, 0);
             let html = '';
@@ -370,6 +416,7 @@
                 case 'cart': html = renderCart(); break;
                 case 'multimedia': html = renderMultimedia(); break;
                 case 'blog': html = renderBlog(); break;
+                case 'blog-post': html = renderBlogPost(param); break; // Nova Rota
                 case 'partners': html = renderPartners(); break;
                 case 'faq': html = renderFAQ(); break;
                 case 'legal-terms': case 'legal-privacy': case 'legal-refund': html = renderLegal(page); break;
@@ -436,7 +483,6 @@
             let itemsHtml = products.map(p => `
                 <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition group flex flex-col category-item" data-category="${p.category}">
                     <div class="relative overflow-hidden">
-                        <!-- Aqui usamos a classe .img-padrao para manter o tamanho fixo -->
                         <img src="${p.image}" alt="${p.name}" class="img-padrao transform group-hover:scale-110 transition duration-500">
                         <span class="absolute top-2 right-2 bg-primary text-white text-xs font-bold px-2 py-1 rounded">${p.category}</span>
                     </div>
@@ -530,7 +576,6 @@
         }
 
         function renderMultimedia() {
-            // Imagens para a galeria Momentos
             const fotosMomentos = [
                 "https://scontent-cpt1-1.xx.fbcdn.net/v/t39.30808-6/471180106_18436794991078958_1378249432723982975_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeFfa5MwmsfoKPieKugq1ZPuh4EqDbxRnZqHgSoNvFGdmhiVgsaNvrhYefhI-yMnuBD4jwsz9JQAefnMBKswtLPb&_nc_ohc=SFDOavpAVm0Q7kNvwHcwPS2&_nc_oc=AdmTFerFWGXOo33VteT-g5JBk7G86fze3jD1py7mDsE4xuvEJjgckXbJNGsBbktdsMLyHWc-_Avb-c1isDc8j2nF&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=bXuSvBBby32Bozd-1ww2GQ&oh=00_AfqytBN2UKLJs0twpUqPQgmreJ8R-CQPlR0py5zq5rNpug&oe=697C0FF3",
                 "https://scontent-cpt1-1.xx.fbcdn.net/v/t39.30808-6/470561983_18436799662078958_4930335527415635425_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeF-sskuY0YXt0M1x0foR8D0BnPT1DraTtQGc9PUOtpO1Cv2Qcv6oFak-IhxEaT2s7WSZyFwE3MLrAcwRpOgsNRx&_nc_ohc=3Og_arEM7p4Q7kNvwEQ9mN2&_nc_oc=AdnVY0E48wjuw1cGM9f9Chv17AznEBsOMEjAZmLsGsmLSvCXp1907gyisIY2UXhU5O8pQBb3UPDEx34PctlNGHMU&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=mHd5L48vbjQJOhd0_QFuZA&oh=00_AfoN5rhKqG1GSsA0FD5LVnJ2iVPP6-cv7-bqbVBzRrr_NA&oe=697C0DFF",
@@ -541,42 +586,26 @@
                 "https://scontent-cpt1-1.xx.fbcdn.net/v/t51.75761-15/499465694_18462879655078958_1835999236501744835_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGvYx1-ZpKX-1UUWUuGAQMgSIfmIFUgNDRIh-YgVSA0NLIAM6H3ZeeRqaDePU5ZbanjUr8GoeikPNDhtMtZTsAO&_nc_ohc=ku-RCo5WYaUQ7kNvwHWEjSv&_nc_oc=AdnDcVDizGvxD7kAwiBKRJyaibZyk-Sl7Otb3ABzZGunModexccmRvJ9VWeq0fLJtqzCiNrwLoFNHrT6ttUnS-vC&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=UWkGrx1ySIQjpHcPZTTBbg&oh=00_AfqJpne-IdPWtT-uBZVKoD7O80Ls_vxyRHw4xqtt5KHfxg&oe=697C28A8",
                 "https://scontent-cpt1-1.xx.fbcdn.net/v/t39.30808-6/471155898_18436800277078958_3047970815837566890_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeFfyMv7k7J8hvykJrGR2vzvjDhCNIwwKJyMOEI0jDAonJMBMTjmxoZStVYldTc7SaedYo2IrHx4hlYygH7YxceX&_nc_ohc=1QNsxvgNu6EQ7kNvwGI0B71&_nc_oc=AdkuFnUx-jj9yO68JjeIYsSV8Etw1J88OQOYCjC7zVHRARCkl0nxweHZE5C1zIX9OfgoPpnh3gt_FX86RpggiMVU&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=xMjS2DzNg-8_676IWnlAJQ&oh=00_Afp3waAYQXfqCsBBqAKUWI4Q4h8_4MMj4kCFn0zkAuudWg&oe=697C3ACD"
             ];
-
             return `
                 <div class="container mx-auto px-4 py-8">
                     <h2 class="text-3xl font-bold text-center mb-8 text-primaryDark">Multimédia & Dicas</h2>
-                    
-                    <!-- Vídeos em Destaque (Embeds) -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-                        <!-- TikTok -->
                         <div class="bg-black rounded-xl h-[550px] flex items-center justify-center relative overflow-hidden shadow-lg border border-gray-900">
                              <iframe src="https://www.tiktok.com/embed/v2/7591613718400601400" class="w-full h-full border-0" allowfullscreen scrolling="no" allow="encrypted-media;"></iframe>
                         </div>
-                        
-                        <!-- Facebook Reel (Link 1 Novo) -->
                         <div class="bg-white rounded-xl h-[550px] flex items-center justify-center relative overflow-hidden shadow-lg border border-gray-100">
                              <iframe src="https://www.facebook.com/plugins/video.php?height=550&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F773125141667597&show_text=false&width=308&t=0" width="100%" height="100%" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
                         </div>
-
-                        <!-- Instagram Reel (Atualizado com o link correto) -->
                         <div class="video-card bg-white border border-gray-100 rounded-2xl p-4 shadow-lg hover:shadow-xl transition duration-300 h-[550px] flex flex-col">
                             <div class="flex items-center gap-2 mb-3 text-[#E1306C] font-bold">
                                 <i class="fab fa-instagram text-xl"></i>
                                 <span>Instagram Reels</span>
                             </div>
                             <div class="flex-grow relative overflow-hidden rounded-xl">
-                                <iframe 
-                                    src="https://www.instagram.com/reel/DSKJORdjp4L/embed" 
-                                    class="absolute top-0 left-0 w-full h-full border-0"
-                                    allowtransparency="true" 
-                                    allowfullscreen="true" 
-                                    scrolling="no">
-                                </iframe>
+                                <iframe src="https://www.instagram.com/reel/DSKJORdjp4L/embed" class="absolute top-0 left-0 w-full h-full border-0" allowtransparency="true" allowfullscreen="true" scrolling="no"></iframe>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Seção Momentos Patrícia Pattas -->
                     <div class="mt-12">
                         <div class="text-center mb-8">
                             <h3 class="text-2xl md:text-3xl font-bold text-primaryDark mb-2">Momentos Patrícia Pattas</h3>
@@ -594,22 +623,60 @@
             `;
         }
 
+        // NOVO: Função para renderizar lista de blogs
         function renderBlog() {
             return `
                 <div class="container mx-auto px-4 py-8">
                     <h2 class="text-3xl font-bold text-center mb-8 text-primaryDark">Blog de Notícias</h2>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        ${blogPosts.map((post, index) => `
+                        ${blogPosts.map((post) => `
                             <div class="bg-white rounded-xl shadow overflow-hidden hover:shadow-lg transition flex flex-col h-full">
                                 <img src="${post.img}" class="w-full h-48 object-cover">
                                 <div class="p-6 flex flex-col flex-grow">
                                     <p class="text-xs text-primary font-bold mb-2">${post.date}</p>
                                     <h3 class="text-xl font-bold text-gray-800 mb-3">${post.title}</h3>
-                                    <p class="text-gray-600 text-sm mb-4 flex-grow">Descubra as novidades e dicas exclusivas para melhorar sua técnica e cuidar da sua beleza...</p>
-                                    <button onclick="alert('Funcionalidade de leitura completa em breve! (Artigo ${index+1})')" class="bg-primary/10 text-primaryDark font-bold py-2 rounded hover:bg-primary hover:text-white transition w-full mt-auto">Ver Mais</button>
+                                    <p class="text-gray-600 text-sm mb-4 flex-grow line-clamp-3">
+                                        <!-- Prévia do conteúdo -->
+                                        ${post.fullContent.replace(/<[^>]*>/g, '').substring(0, 100)}...
+                                    </p>
+                                    <!-- IMPLEMENTAÇÃO 2: Botão para abrir artigo completo -->
+                                    <button onclick="router('blog-post', ${post.id})" class="bg-primary/10 text-primaryDark font-bold py-2 rounded hover:bg-primary hover:text-white transition w-full mt-auto">Ler Completo</button>
                                 </div>
                             </div>
                         `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        // NOVO: Função para renderizar um post único completo
+        function renderBlogPost(id) {
+            const post = blogPosts.find(p => p.id === id);
+            if (!post) return renderBlog();
+
+            return `
+                <div class="container mx-auto px-4 py-8 max-w-3xl">
+                    <button onclick="router('blog')" class="mb-6 flex items-center gap-2 text-gray-600 hover:text-primary transition font-semibold">
+                        <i class="fas fa-arrow-left"></i> Voltar para o Blog
+                    </button>
+                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                        <img src="${post.img}" class="w-full h-64 md:h-96 object-cover">
+                        <div class="p-8">
+                            <div class="flex items-center gap-2 text-primary font-bold text-sm mb-4">
+                                <i class="far fa-calendar-alt"></i> ${post.date}
+                            </div>
+                            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6 leading-tight">${post.title}</h1>
+                            <div class="prose prose-purple max-w-none text-gray-700 leading-relaxed">
+                                ${post.fullContent}
+                            </div>
+                            <div class="mt-8 border-t pt-6 flex justify-between items-center">
+                                <span class="font-bold text-gray-800">Gostou deste artigo?</span>
+                                <div class="flex gap-2">
+                                    <button onclick="shareArticleFacebook()" class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 flex items-center justify-center cursor-pointer" title="Partilhar no Facebook"><i class="fab fa-facebook-f"></i></button>
+                                    <button onclick="shareArticleWhatsApp('${post.title.replace(/'/g, "\\'")}')" class="w-10 h-10 rounded-full bg-green-100 text-green-600 hover:bg-green-200 flex items-center justify-center cursor-pointer" title="Partilhar no WhatsApp"><i class="fab fa-whatsapp"></i></button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             `;
@@ -663,7 +730,6 @@
                         <h2 class="text-3xl font-bold text-center text-primaryDark mb-2">Publicidade & Vagas</h2>
                         <p class="text-center text-gray-600 mb-8">Espaço dedicado a parceiros e oportunidades de emprego.</p>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <!-- Parceiro Logística -->
                             <div class="bg-white p-6 rounded-xl shadow border border-gray-100 flex items-center gap-4">
                                 <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-xl">L</div>
                                 <div class="flex-1">
@@ -672,43 +738,26 @@
                                     <a href="https://wa.me/244926837464?text=Olá, vi o anúncio no site da Patrícia Pattas e gostaria de saber mais sobre os serviços de entrega." target="_blank" class="bg-green-500 hover:bg-green-600 text-white text-xs px-4 py-2 rounded-full inline-flex items-center gap-2 transition"><i class="fab fa-whatsapp"></i> Contactar Parceiro</a>
                                 </div>
                             </div>
-
-                             <!-- Vaga de Emprego com Upload Real -->
                              <div class="bg-white p-6 rounded-xl shadow border border-gray-100 flex flex-col gap-4">
                                 <div class="flex items-center gap-4">
                                     <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold text-xl"><i class="fas fa-briefcase"></i></div>
                                     <div><h3 class="font-bold text-lg">Vaga: Assistente de Loja</h3><p class="text-sm text-gray-500">Local: Luanda Sul (Patrícia Pattas Shop)</p></div>
                                 </div>
-                                
-                                <!-- FORMULÁRIO REAL DE CANDIDATURA (FORMSUBMIT) -->
                                 <form id="job-form" class="border-t pt-4 mt-4" enctype="multipart/form-data">
-                                    <!-- Configurações do FormSubmit -->
                                     <input type="hidden" name="_to" value="${SITE_EMAIL}">
                                     <input type="hidden" name="_subject" value="Nova Candidatura - Patrícia Pattas">
                                     <input type="hidden" name="_captcha" value="false">
                                     <input type="hidden" name="_autoresponse" value="Recebemos sua candidatura. Entraremos em contacto se o perfil for compatível. Boa sorte!">
-                                    
                                     <div class="space-y-3">
-                                        <div>
-                                            <input type="text" name="nome" placeholder="Seu Nome Completo" required class="w-full border border-gray-300 p-2 rounded text-sm focus:outline-none focus:border-primary">
-                                        </div>
-                                        <div>
-                                            <input type="tel" name="telefone" placeholder="Seu WhatsApp/Telefone" required class="w-full border border-gray-300 p-2 rounded text-sm focus:outline-none focus:border-primary">
-                                        </div>
-                                        <div>
-                                            <label class="block text-xs font-bold text-gray-700 mb-2">Anexar Currículo (PDF)</label>
-                                            <input type="file" name="attachment" accept="application/pdf" required class="block w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 cursor-pointer">
-                                        </div>
+                                        <div><input type="text" name="nome" placeholder="Seu Nome Completo" required class="w-full border border-gray-300 p-2 rounded text-sm focus:outline-none focus:border-primary"></div>
+                                        <div><input type="tel" name="telefone" placeholder="Seu WhatsApp/Telefone" required class="w-full border border-gray-300 p-2 rounded text-sm focus:outline-none focus:border-primary"></div>
+                                        <div><label class="block text-xs font-bold text-gray-700 mb-2">Anexar Currículo (PDF)</label><input type="file" name="attachment" accept="application/pdf" required class="block w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 cursor-pointer"></div>
                                     </div>
-
                                     <div class="flex flex-col gap-2 mt-4">
-                                        <!-- Botão Enviar por E-mail (Upload Real) -->
                                         <button type="submit" class="w-full bg-primary hover:bg-primaryDark text-white text-sm font-bold py-2 rounded-lg transition flex justify-center items-center gap-2">
                                             <i class="fas fa-envelope-open-text"></i> <span id="job-btn-text">Enviar Candidatura (PDF)</span>
                                             <i id="job-loader" class="fas fa-spinner fa-spin hidden"></i>
                                         </button>
-                                        
-                                        <!-- Botão Alternativo WhatsApp (Apenas link) -->
                                         <button type="button" onclick="applyJobWhatsApp('244926837464', 'Assistente de Loja')" class="w-full bg-green-500 hover:bg-green-600 text-white text-sm font-bold py-2 rounded-lg transition flex justify-center items-center gap-2">
                                             <i class="fab fa-whatsapp"></i> Falar no WhatsApp
                                         </button>
@@ -815,13 +864,37 @@
             window.open(`https://wa.me/244926837464?text=${msg}`, '_blank');
         }
         
-        // Função do Botão WhatsApp (Vagas) - Apenas abre o chat
         function applyJobWhatsApp(phone, jobTitle) {
             const message = `Olá! Tenho interesse na vaga de *${jobTitle}* anunciada no site Patrícia Pattas. O meu currículo segue em anexo nesta conversa.`;
             const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
             window.open(url, '_blank');
             alert("O WhatsApp será aberto. Por favor, lembre-se de ANEXAR o ficheiro PDF manualmente na conversa.");
         }
+
+        // --- IMPLEMENTAÇÃO 3: Lógica de Tela Cheia (Fullscreen) ---
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch((err) => {
+                    alert(`Erro ao tentar ativar tela cheia: ${err.message}`);
+                });
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        // Atualiza o ícone quando o modo fullscreen muda (via Esc ou Botão)
+        document.addEventListener('fullscreenchange', () => {
+            const icon = document.getElementById('fullscreen-icon');
+            if (document.fullscreenElement) {
+                icon.classList.remove('fa-expand');
+                icon.classList.add('fa-compress');
+            } else {
+                icon.classList.remove('fa-compress');
+                icon.classList.add('fa-expand');
+            }
+        });
 
         // --- LÓGICA DE FORMULÁRIOS (FORMSUBMIT COM ARQUIVO REAL) ---
         async function handleFormSubmit(event, formId, btnTextId, loaderId, successMsg) {
@@ -830,25 +903,21 @@
             const btnText = document.getElementById(btnTextId);
             const loader = document.getElementById(loaderId);
             
-            // Cria o FormData (pega textos e arquivos automaticamente)
             const formData = new FormData(form);
 
-            // Validação simples para evitar envio se o email for exemplo
             const emailTo = formData.get('_to');
             if(emailTo.includes('EXEMPLO.COM')) {
                 alert("Erro de configuração de email.");
                 return;
             }
 
-            // UI Loading
             btnText.classList.add('hidden');
             loader.classList.remove('hidden');
 
             try {
-                // Envia para o FormSubmit (AJAX)
                 const response = await fetch(`https://formsubmit.co/ajax/${emailTo}`, {
                     method: 'POST',
-                    body: formData // Envia o FormData diretamente (suporta arquivos)
+                    body: formData
                 });
                 
                 const result = await response.json();
@@ -861,8 +930,6 @@
                 }
             } catch (error) {
                 console.error(error);
-                // Fallback: Se o AJAX falhar (CORS ou arquivo muito grande), submete normal
-                // Mas geralmente FormSubmit AJAX aceita arquivos se < 25MB
                 alert('Erro de conexão ou arquivo muito grande. Tentando envio padrão...');
                 form.submit(); 
             } finally {
@@ -871,14 +938,12 @@
             }
         }
 
-        // Listener global para forms
         document.addEventListener('submit', function(e) {
             if(e.target.id === 'newsletter-form') {
                 handleFormSubmit(e, 'newsletter-form', 'newsletter-btn-text', 'newsletter-loader', 'Inscrição realizada com sucesso! 🎉');
             } else if(e.target.id === 'contact-form') {
                 handleFormSubmit(e, 'contact-form', 'contact-btn-text', 'contact-loader', 'Mensagem enviada! Entraremos em contacto em breve.');
             } else if(e.target.id === 'job-form') {
-                // Manipulador específico para a vaga
                 handleFormSubmit(e, 'job-form', 'job-btn-text', 'job-loader', 'Candidatura enviada com sucesso! O seu currículo foi entregue.');
             }
         });
@@ -900,7 +965,6 @@
             addUserMessage(text);
             input.value = '';
             
-            // Simula "pensando"
             setTimeout(() => processUserMessage(text), 600);
         }
 
@@ -908,7 +972,6 @@
             const lowerText = text.toLowerCase();
             let response = "";
 
-            // 1. Navegação
             if(lowerText.includes('ir para') || lowerText.includes('abrir a página')) {
                 if(lowerText.includes('loja')) { router('shop'); response = "Abrindo a Loja Virtual para você..."; }
                 else if(lowerText.includes('serviço')) { router('services'); response = "Mostrando nossos serviços..."; }
@@ -916,10 +979,8 @@
                 else if(lowerText.includes('agend')) { router('booking'); response = "Abrindo a agenda..."; }
                 else response = "Posso te levar para: Loja, Serviços, Contato ou Agendamento.";
             }
-            // 2. Busca de Produtos (Inteligente)
             else if(lowerText.includes('tem') || lowerText.includes('vende') || lowerText.includes('preço de') || lowerText.includes('quero')) {
-                // Tenta encontrar nome do produto na frase
-                const foundProduct = products.find(p => lowerText.includes(p.name.toLowerCase()) || lowerText.includes(p.category.toLowerCase().slice(0, -1))); // match parcial
+                const foundProduct = products.find(p => lowerText.includes(p.name.toLowerCase()) || lowerText.includes(p.category.toLowerCase().slice(0, -1))); 
                 
                 if(foundProduct) {
                     response = `Sim! Temos <strong>${foundProduct.name}</strong> por ${foundProduct.price} Kz. <br><button onclick="addToCart(${foundProduct.id})" class="text-xs bg-primary text-white px-2 py-1 rounded mt-1">Adicionar ao Carrinho</button>`;
@@ -929,7 +990,6 @@
                      response = "Temos muitos produtos incríveis. Visite nossa <button onclick=\"router('shop')\" class='font-bold underline'>Loja Virtual</button> para ver o catálogo completo.";
                 }
             }
-            // 3. Informações Gerais
             else if(lowerText.includes('entrega') || lowerText.includes('envio')) {
                 response = "Fazemos entregas em Luanda via moto-táxi (taxa por zona). Para províncias, enviamos via transportadora (levantamento no terminal).";
             }
@@ -945,11 +1005,9 @@
              else if(lowerText.includes('curso') || lowerText.includes('formação')) {
                 response = "Temos cursos de Auto-Maquilhagem e Profissional. Veja os detalhes na aba <button onclick=\"router('services')\" class='underline'>Serviços</button>.";
             }
-            // 4. Saudações
             else if(lowerText.includes('olá') || lowerText.includes('oi') || lowerText.includes('bom dia')) {
                 response = "Olá! Como posso ajudar você hoje? Procure por produtos ou tire suas dúvidas.";
             }
-            // Default
             else {
                 response = "Desculpe, não entendi bem. Tente perguntar sobre 'batom', 'entregas' ou 'cursos'. Ou clique no ícone do WhatsApp para falar com a humana!";
             }
@@ -968,7 +1026,7 @@
         function addBotMessage(html) {
             const div = document.createElement('div');
             div.className = 'chat-bubble chat-bot';
-            div.innerHTML = html; // Usar innerHTML para permitir botões/links
+            div.innerHTML = html; 
             document.getElementById('chat-messages').appendChild(div);
             scrollToBottom();
         }
@@ -998,7 +1056,18 @@
             });
         }
 
-        // Inicialização
+        // NOVAS FUNÇÕES PARA PARTILHA DE ARTIGOS
+        function shareArticleWhatsApp(title) {
+            const text = `Leitura recomendada: ${title} - No site da Patrícia Pattas!`;
+            window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        function shareArticleFacebook() {
+            // Facebook sharer normally takes a URL. Since this is an SPA, we share the current page URL.
+            const url = window.location.href; 
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             router('home');
             updateCartCount();
