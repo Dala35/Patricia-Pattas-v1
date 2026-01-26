@@ -676,7 +676,7 @@
                                     <div class="flex items-center gap-2">
                                         <span class="font-bold text-gray-800">Partilhar:</span>
                                         <button onclick="shareArticleFacebook()" class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 flex items-center justify-center transition" title="Partilhar no Facebook"><i class="fab fa-facebook-f"></i></button>
-                                        <button onclick="shareArticleWhatsApp('${post.title.replace(/'/g, "\\'")}')" class="w-10 h-10 rounded-full bg-green-100 text-green-600 hover:bg-green-200 flex items-center justify-center transition" title="Partilhar no WhatsApp"><i class="fab fa-whatsapp"></i></button>
+                                        <button onclick="shareArticleWhatsApp('${post.title.replace(/'/g, "\\'")}', ${post.id})" class="w-10 h-10 rounded-full bg-green-100 text-green-600 hover:bg-green-200 flex items-center justify-center transition" title="Partilhar no WhatsApp"><i class="fab fa-whatsapp"></i></button>
                                     </div>
                                     
                                     <!-- Links Reais do Perfil (Implementação Solicitada) -->
@@ -704,7 +704,19 @@
                     </div>
                 `;
             }
-            const total = cart.reduce((acc, item) => acc + parseFloat(item.price), 0).toFixed(0);
+            // --- IMPLEMENTAÇÃO 1: CORREÇÃO NO CÁLCULO DO CARRINHO ---
+            const totalVal = cart.reduce((acc, item) => {
+                let priceStr = item.price;
+                // Remove pontos de milhar para converter corretamente em número (ex: "4.500" -> "4500")
+                priceStr = priceStr.toString().replace(/\./g, '');
+                // Garante que decimais usem ponto (se houver vírgula)
+                priceStr = priceStr.replace(',', '.');
+                return acc + parseFloat(priceStr);
+            }, 0);
+            
+            // Formata de volta para exibição com separadores de milhar (estilo PT-AO)
+            const totalFormatted = totalVal.toLocaleString('pt-AO'); 
+
             return `
                 <div class="container mx-auto px-4 py-8 max-w-4xl">
                     <h2 class="text-3xl font-bold mb-8 text-primaryDark">Carrinho de Compras</h2>
@@ -723,7 +735,7 @@
                         <div class="p-6 bg-purple-50 flex flex-col md:flex-row justify-between items-center">
                             <div class="mb-4 md:mb-0">
                                 <p class="text-gray-600">Total a Pagar</p>
-                                <p class="text-3xl font-bold text-primaryDark">${total} Kz</p>
+                                <p class="text-3xl font-bold text-primaryDark">${totalFormatted} Kz</p>
                             </div>
                             <button onclick="checkoutWhatsApp()" class="bg-green-500 text-white px-8 py-4 rounded-lg font-bold hover:bg-green-600 transition flex items-center gap-2 shadow-lg w-full md:w-auto justify-center">
                                 <i class="fab fa-whatsapp text-2xl"></i> Finalizar Compra no WhatsApp
@@ -865,8 +877,13 @@
         function checkoutWhatsApp() {
             let message = "Olá Patrícia! Gostaria de finalizar minha compra na Loja Virtual:%0A%0A";
             let total = 0;
-            cart.forEach(item => { message += `- ${item.name} (${item.category}): ${item.price} Kz%0A`; total += parseFloat(item.price); });
-            message += `%0ATotal: *${total.toFixed(0)} Kz*`;
+            // Cálculo robusto para a mensagem de checkout também
+            cart.forEach(item => { 
+                message += `- ${item.name} (${item.category}): ${item.price} Kz%0A`; 
+                let priceVal = parseFloat(item.price.toString().replace(/\./g, '').replace(',', '.'));
+                total += priceVal; 
+            });
+            message += `%0ATotal: *${total.toLocaleString('pt-AO')} Kz*`;
             window.open(`https://wa.me/244926837464?text=${message}`, '_blank');
         }
         function handleBooking(e) {
@@ -1068,14 +1085,15 @@
             });
         }
 
-        // NOVAS FUNÇÕES PARA PARTILHA DE ARTIGOS
-        function shareArticleWhatsApp(title) {
-            const text = `Leitura recomendada: ${title} - No site da Patrícia Pattas!`;
+        // NOVAS FUNÇÕES PARA PARTILHA DE ARTIGOS - IMPLEMENTAÇÃO 2
+        function shareArticleWhatsApp(title, id) {
+            // Link placeholder que inclui o ID do artigo, para ser substituído pelo link real posteriormente
+            const linkPlaceholder = `https://patriciapattas.com/blog/${id}`;
+            const text = `*${title}* \n\nLeitura recomendada no site da Patrícia Pattas! \nLeia mais aqui: ${linkPlaceholder}`;
             window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
         }
 
         function shareArticleFacebook() {
-            // Facebook sharer normally takes a URL. Since this is an SPA, we share the current page URL.
             const url = window.location.href; 
             window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
         }
