@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
@@ -57,14 +57,12 @@
         }
 
         /* --- CONFIGURAÇÃO DE IMAGENS --- */
-        /* Aqui definimos a altura e largura padrão para todas as imagens da loja */
         .img-padrao {
-            height: 220px; /* Altura fixa */
-            width: 100%;   /* Largura total do container */
-            object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer */
+            height: 220px;
+            width: 100%;
+            object-fit: cover;
         }
         
-        /* Estilo para as fotos da galeria Momentos */
         .img-momento {
             height: 250px;
             width: 100%;
@@ -251,9 +249,7 @@
         // --- CONFIGURAÇÃO GLOBAL ---
         const SITE_EMAIL = "angelinapatas97@gmail.com"; 
 
-        // --- BANCO DE DADOS DE PRODUTOS (MANUAL PARA FÁCIL EDIÇÃO) ---
-        // Aqui você pode editar o NOME, PREÇO e LINK DA IMAGEM de cada produto.
-        // A altura e largura das imagens estão configuradas no CSS (.img-padrao).
+        // --- BANCO DE DADOS DE PRODUTOS ---
         
         const catalogoMaquilhagem = [
             { name: "Base Matte Velvet", price: "4.500", img: "https://images.unsplash.com/photo-1596462502278-27bfdd403cc2?auto=format&fit=crop&w=500&q=80" },
@@ -267,12 +263,12 @@
         ];
 
         const catalogoCroche = [
-            { name: "Top Crochê Verão", price: "5.000", img: "https://images.unsplash.com/photo-1584992236310-6eddd7580556?auto=format&fit=crop&w=500&q=80" },
-            { name: "Saída de Praia Boho", price: "12.000", img: "https://images.unsplash.com/photo-1619250907577-43485081f216?auto=format&fit=crop&w=500&q=80" },
-            { name: "Biquíni Artesanal", price: "8.500", img: "https://images.unsplash.com/photo-1606233263158-95801e05d97f?auto=format&fit=crop&w=500&q=80" },
-            { name: "Vestido Longo Handmade", price: "25.000", img: "https://images.unsplash.com/photo-1517254790823-74b8686d6342?auto=format&fit=crop&w=500&q=80" },
-            { name: "Crop Top Festival", price: "4.500", img: "https://images.unsplash.com/photo-1584992236310-6eddd7580556?auto=format&fit=crop&w=500&q=80" },
-            { name: "Bolsa de Ombro Trama", price: "6.000", img: "https://images.unsplash.com/photo-1619250907577-43485081f216?auto=format&fit=crop&w=500&q=80" }
+            { name: "Conjunto de saia e calça", price: "30.000", img: "https://scontent-cpt1-1.xx.fbcdn.net/v/t39.30808-6/470870945_2269706376718201_1226928014039339194_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeEJTyYp1a_Z0YxZS_yvIE1zycB9OyvKqErJwH07K8qoSn1r87GvFGSjs4zDOrfBzo-hPdlwp_MyfPwgtcnTnNKr&_nc_ohc=ialtoukNPl0Q7kNvwF-MWxV&_nc_oc=AdnKw2lQnmJNdmKr05oORaB1H3qapK2beBGYCcspBUuBHB5Lk17whljqOg0wYx5113s7d2yX8zUHxKigxWVZwHAx&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=14p1UVElnNdSQBxmH0AaJQ&oh=00_AfqIDBudx40ZGvGatZmvYF-UG7U83CQ-t6FVItmDRB_6EQ&oe=697DB349" },
+            { name: "Conjunto de Praia", price: "18.000", img: "https://scontent-cpt1-1.xx.fbcdn.net/v/t1.6435-9/171847438_1353815051640676_4439554293050690979_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeH8sC59_CH8LYrcIP0aGqXnZkoAuHaqG-pmSgC4dqob6g3qagrgPuL1IN-mPXcaepyEb3BPXdmfK-zcdeQpOUQQ&_nc_ohc=WWoQe2tmq_IQ7kNvwG850nd&_nc_oc=Adnf2-hNKyTsKkixdDVsopIFSKz1KiSpJ7aA-TB-fhs3YHCzMXiRLiYTctW-xbvGyzP9vgI2c_YfS65sLINcC8dC&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=efUyVvj_Lpf9ZdN3WSi65w&oh=00_Afr1LNJhKtd0tDz0EWsVGy3xC2MVorH5uWU-QaA_SdJ_zg&oe=699F18CD" },
+            { name: "Croppede de praia", price: "15.000", img: "https://scontent-cpt1-1.xx.fbcdn.net/v/t1.6435-9/186486433_1376257462729768_347258997037062071_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeE010Z1lnsR6QlSGct2hfyDt0d0nRFP4h23R3SdEU_iHTMb7ODeDqgLXlDq079adWZh8HYWmEr3mgwPLy_fMnld&_nc_ohc=H7avR1sXUwMQ7kNvwH_YDV1&_nc_oc=AdlEPIJTPViJsZX7F7FIR0XuZ03e3VGS8ZU7vXQh5q0O9VSAYMelyZ_fB1yXYiXLTplpeRpgYc-hHiTc_URqFtU3&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=zVIUuuwfrsFI3xp6yVSgFA&oh=00_Afp_5NbxYpq2vbA9dDCH6mTrmWUF4eYr8n0uSWWhAvUliA&oe=699F2A2E" },
+            { name: "Conjunto de banho", price: "Solicitar preço", img: "https://scontent-cpt1-1.xx.fbcdn.net/v/t1.6435-9/153119019_1322081041480744_4842156258718409745_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeF5TsZO6PSzduzkZDhPP85eANoUNy4NBOAA2hQ3Lg0E4NUFAOszCwKppwwhH-IBvoK_vxR4FuiXoIV6WFo_M_qj&_nc_ohc=vhgvxBuEX3IQ7kNvwHqNJBu&_nc_oc=AdmN2SFVY5ZgnkRCCZ8WdAJj8cL1jNAzmXoVM_o3KdncHxFQotp55yHRCR8xkK3xlJyZA_wmDNswC8k2TJr_JQ7F&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=qQqlvgdwDdZxBXX8eN1gLg&oh=00_AfoEUqY8IfDS3xMkj4fMdZkxjsYWCQHlw_Bi8s8sh1LwQA&oe=699F39CB" },
+            { name: "Crop Top Festival", price: "4.500", img: "https://scontent-cpt1-1.xx.fbcdn.net/v/t1.6435-9/172670460_1355466368142211_3019448796378848027_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeG4UnvU4obrvHjN9ovUd0-MeieiN4g-wFR6J6I3iD7AVC5cwpBu8jMAaO9PxcQL0gMpNJAM4YEaYdVyVmR1meGD&_nc_ohc=loxu_E3pTrMQ7kNvwEGz-Qi&_nc_oc=Adktqy-9Ew46o7vlYedzZtnH__Q98jf8OCIeDYtPTKxNbGttw5h40Uq5F2EKUbiRRnkMCZnfbhdJoFmHJyDe_3qL&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=jMgSfh4P2QYlcNDFa8QE5A&oh=00_AfokJbNGyQyu3KoxqkRhq5WbUL4v1_07GDbu6aMwo38ytw&oe=699F3641" },
+            { name: "Bolsa de Ombro Trama", price: "6.000", img: "https://scontent-cpt1-1.xx.fbcdn.net/v/t1.6435-9/177013438_1363531564002358_1945971796500641884_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeGXmNcalP7KmCzJQrD60DiI_zckabiZQiz_NyRpuJlCLCDNJayx7Hv-ZUlcz81qxsUf9-OSwOVeVOFYKZZrLNrh&_nc_ohc=yz8eaUHsNEwQ7kNvwGktA_m&_nc_oc=AdnBo19j0VZHGzUeXhdBQJax2oVzEMicVMSOLR5JNAqo-scROkDnRNFHZQZ-DvfyBpF35WHqZyduvuXfe2TjpCLK&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=3lS-gOY-pLPbyKhZBh6gPw&oh=00_AfocOB1BXfPz1R_nRVxmlARl2g9u6THe3KbxB9p1fiTBrQ&oe=699F2812" }
         ];
 
         const catalogoSkincare = [
@@ -539,9 +535,9 @@
                 "https://scontent-cpt1-1.xx.fbcdn.net/v/t39.30808-6/471180106_18436794991078958_1378249432723982975_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeFfa5MwmsfoKPieKugq1ZPuh4EqDbxRnZqHgSoNvFGdmhiVgsaNvrhYefhI-yMnuBD4jwsz9JQAefnMBKswtLPb&_nc_ohc=SFDOavpAVm0Q7kNvwHcwPS2&_nc_oc=AdmTFerFWGXOo33VteT-g5JBk7G86fze3jD1py7mDsE4xuvEJjgckXbJNGsBbktdsMLyHWc-_Avb-c1isDc8j2nF&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=bXuSvBBby32Bozd-1ww2GQ&oh=00_AfqytBN2UKLJs0twpUqPQgmreJ8R-CQPlR0py5zq5rNpug&oe=697C0FF3",
                 "https://scontent-cpt1-1.xx.fbcdn.net/v/t39.30808-6/470561983_18436799662078958_4930335527415635425_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeF-sskuY0YXt0M1x0foR8D0BnPT1DraTtQGc9PUOtpO1Cv2Qcv6oFak-IhxEaT2s7WSZyFwE3MLrAcwRpOgsNRx&_nc_ohc=3Og_arEM7p4Q7kNvwEQ9mN2&_nc_oc=AdnVY0E48wjuw1cGM9f9Chv17AznEBsOMEjAZmLsGsmLSvCXp1907gyisIY2UXhU5O8pQBb3UPDEx34PctlNGHMU&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=mHd5L48vbjQJOhd0_QFuZA&oh=00_AfoN5rhKqG1GSsA0FD5LVnJ2iVPP6-cv7-bqbVBzRrr_NA&oe=697C0DFF",
                 "https://scontent-cpt1-1.xx.fbcdn.net/v/t51.75761-15/491415750_18058241234154897_6955716653653450962_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGIp-AkLGOs61fmNz4YPOEHbknabuyGAP1uSdpu7IYA_UWurKSyBK-BWbSAYPbJmoN4y3Ozi_VpnoizyKhAZrmh&_nc_ohc=4G11CaHhZxcQ7kNvwHBqg1p&_nc_oc=Adkh3xWwn8gJlxN7kk9Vo06rncjraMSPJuQCAmdj7nBJKwosfFC_y6Q6j0o8Yb5w55Wx-1ZNlSzSVXGeD0X1FiLH&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=pcTNkH3hSyFk__r1SbXlUA&oh=00_AfoCAyk1hHN5eGjK-EfDYEqqkplL77KED75pHOuS9IwjOw&oe=697BDB30",
-                "https://scontent-cpt1-1.xx.fbcdn.net/v/t51.75761-15/491417781_18058241225154897_7900159777939384603_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeFnHbrd8MW-bOJLCbYkHutXA24rDUG9s9kDbisNQb2z2ehz23qlbOyMPbx4a9whI6KdLH7jitU7VxttaVvIwq0b&_nc_ohc=Uaqha6Pk8QIQ7kNvwHX0-h3&_nc_oc=AdkrLvk5-lW0LAul5g-_LLxdWd5dYJghzHNO6nz0Elq3tLZ7bpbNuvK3twYFLJPLW-6QoXOHVeA5ymqTtyBpscpQ&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=jOQbdNlpWoyYgS0cmh-y0w&oh=00_AfqTCQBHqNW7OKBnBC-uQJGRBBm33xR95Y-Gy-Y5DR0ptQ&oe=697BE77F",
+                "https://scontent-cpt1-1.xx.fbcdn.net/v/t39.30808-6/470193703_18435865387078958_2744649882938717474_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeEMF7wwr0z7wMF108Si4fK_zOblki1B_jfM5uWSLUH-N_hvy7My_9STNrfNeFK89Vcr3ZliEgJsSmbvl97sTAoL&_nc_ohc=Kk7HLSwE8roQ7kNvwFVCNe9&_nc_oc=Adnb-E7tZLrecEjhLoEdN_vqqjkXEBiodXyQB6vSElesKdv2LiiAMq_27WuTR72TYtXwtukTrdX9zu_1tUGlklYs&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=G-8ZoVUdxXKdX_ZN8qQwyA&oh=00_AfqQSeJbXm30qXDbbzMJ-e143GFMFO44fr1cbNkqYxWkRg&oe=697D940E",
                 "https://scontent-cpt1-1.xx.fbcdn.net/v/t39.30808-6/470591699_18436796845078958_3451455706905805234_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeHvpPYdtMPsEE0L1p6xHP5qchEpsQz6_8VyESmxDPr_xZU77SL6J92H8iDgsEW1lqER11DZrRixt3LSZHaK6CET&_nc_ohc=Itso89tXqmgQ7kNvwGLGTj6&_nc_oc=Adl0okGV_UAobhHogsOEaXcM2rU-GfkvePYwvIeePXxsE4WScTxsa0mazI0jSz1lzHwYJLfAV3iBkNTsIQ6i-MNk&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=Kbb1pApb7t08RqCGYBrWsw&oh=00_AfqXp1oKVqiyeBhSwnX8dbsGRHXVvS24M8MinOO4-n7R5Q&oe=697C36AC",
-                "https://scontent-cpt1-1.xx.fbcdn.net/v/t51.82787-15/611233526_18503116810078958_4459078858227471195_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeFLeDJpkpV8bc-CkG_jaxUCS1CAiUm-XjhLUICJSb5eOK8aGVRaQAmFmiWdx-qNuSRltw1nRgSCbKkagWrdpWIU&_nc_ohc=6DTjEO-w9b4Q7kNvwFvt98I&_nc_oc=AdlcFfAHqB_JmKR79nkHith3lj45W168WZU_3D-G3aIMGzqUEq3IkD-Sbllx9pdq1_TnXP8Ti7AJwYS2MDpPaA_N&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=tMjocgehp6E0pqZ_3SrFVQ&oh=00_AfqkMpVhsI2xxTAINhbAYaapfN9K7za_uPP1lxelWxwmhg&oe=697BD038",
+                "https://scontent-cpt1-1.xx.fbcdn.net/v/t39.30808-6/470203869_18435856990078958_1989981725040914006_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGTGFRfCFRxuq2U96lcOjUmxvc5ya9GbrPG9znJr0Zus4tavXPzcqM_-rMTo3GvDA-JzkupyIqPkEe4wffQuG6Z&_nc_ohc=Nk1P5Zfg6ScQ7kNvwHlLy4t&_nc_oc=AdmWwA9kcTcEEazqmO7AF7c6CMSEZr-HDJq_2tRkPfafxa1J1nH52OlJnSIQ-bCbsbz6tpXg_TmZ-BiORLezlYrN&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=S4vTr9hxFxWYd0c227NC5w&oh=00_AfqvYq8jEL2VjDOm7rIgK5Bu5TPJMFPnxZKCKYH0HH-McA&oe=697DB41E",
                 "https://scontent-cpt1-1.xx.fbcdn.net/v/t51.75761-15/499465694_18462879655078958_1835999236501744835_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGvYx1-ZpKX-1UUWUuGAQMgSIfmIFUgNDRIh-YgVSA0NLIAM6H3ZeeRqaDePU5ZbanjUr8GoeikPNDhtMtZTsAO&_nc_ohc=ku-RCo5WYaUQ7kNvwHWEjSv&_nc_oc=AdnDcVDizGvxD7kAwiBKRJyaibZyk-Sl7Otb3ABzZGunModexccmRvJ9VWeq0fLJtqzCiNrwLoFNHrT6ttUnS-vC&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=UWkGrx1ySIQjpHcPZTTBbg&oh=00_AfqJpne-IdPWtT-uBZVKoD7O80Ls_vxyRHw4xqtt5KHfxg&oe=697C28A8",
                 "https://scontent-cpt1-1.xx.fbcdn.net/v/t39.30808-6/471155898_18436800277078958_3047970815837566890_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeFfyMv7k7J8hvykJrGR2vzvjDhCNIwwKJyMOEI0jDAonJMBMTjmxoZStVYldTc7SaedYo2IrHx4hlYygH7YxceX&_nc_ohc=1QNsxvgNu6EQ7kNvwGI0B71&_nc_oc=AdkuFnUx-jj9yO68JjeIYsSV8Etw1J88OQOYCjC7zVHRARCkl0nxweHZE5C1zIX9OfgoPpnh3gt_FX86RpggiMVU&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=xMjS2DzNg-8_676IWnlAJQ&oh=00_Afp3waAYQXfqCsBBqAKUWI4Q4h8_4MMj4kCFn0zkAuudWg&oe=697C3ACD"
             ];
@@ -667,6 +663,7 @@
                         <h2 class="text-3xl font-bold text-center text-primaryDark mb-2">Publicidade & Vagas</h2>
                         <p class="text-center text-gray-600 mb-8">Espaço dedicado a parceiros e oportunidades de emprego.</p>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <!-- Parceiro Logística -->
                             <div class="bg-white p-6 rounded-xl shadow border border-gray-100 flex items-center gap-4">
                                 <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-xl">L</div>
                                 <div class="flex-1">
@@ -675,17 +672,49 @@
                                     <a href="https://wa.me/244926837464?text=Olá, vi o anúncio no site da Patrícia Pattas e gostaria de saber mais sobre os serviços de entrega." target="_blank" class="bg-green-500 hover:bg-green-600 text-white text-xs px-4 py-2 rounded-full inline-flex items-center gap-2 transition"><i class="fab fa-whatsapp"></i> Contactar Parceiro</a>
                                 </div>
                             </div>
+
+                             <!-- Vaga de Emprego com Upload Real -->
                              <div class="bg-white p-6 rounded-xl shadow border border-gray-100 flex flex-col gap-4">
                                 <div class="flex items-center gap-4">
                                     <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold text-xl"><i class="fas fa-briefcase"></i></div>
                                     <div><h3 class="font-bold text-lg">Vaga: Assistente de Loja</h3><p class="text-sm text-gray-500">Local: Luanda Sul (Patrícia Pattas Shop)</p></div>
                                 </div>
-                                <div class="border-t pt-4">
-                                    <label class="block text-xs font-bold text-gray-700 mb-2">Envie seu Currículo (PDF)</label>
-                                    <div class="flex gap-2 items-center"><input type="file" id="cv-upload-1" accept=".pdf" class="block w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"></div>
-                                    <button onclick="applyJob('244926837464', 'Assistente de Loja', 'cv-upload-1')" class="mt-3 w-full bg-primary hover:bg-primaryDark text-white text-sm font-bold py-2 rounded-lg transition flex justify-center items-center gap-2"><i class="fas fa-paper-plane"></i> Enviar Candidatura</button>
-                                    <p class="text-[10px] text-gray-400 mt-2 text-center">*Ao clicar, o WhatsApp abrirá. Por favor, anexe o ficheiro PDF na conversa.</p>
-                                </div>
+                                
+                                <!-- FORMULÁRIO REAL DE CANDIDATURA (FORMSUBMIT) -->
+                                <form id="job-form" class="border-t pt-4 mt-4" enctype="multipart/form-data">
+                                    <!-- Configurações do FormSubmit -->
+                                    <input type="hidden" name="_to" value="${SITE_EMAIL}">
+                                    <input type="hidden" name="_subject" value="Nova Candidatura - Patrícia Pattas">
+                                    <input type="hidden" name="_captcha" value="false">
+                                    <input type="hidden" name="_autoresponse" value="Recebemos sua candidatura. Entraremos em contacto se o perfil for compatível. Boa sorte!">
+                                    
+                                    <div class="space-y-3">
+                                        <div>
+                                            <input type="text" name="nome" placeholder="Seu Nome Completo" required class="w-full border border-gray-300 p-2 rounded text-sm focus:outline-none focus:border-primary">
+                                        </div>
+                                        <div>
+                                            <input type="tel" name="telefone" placeholder="Seu WhatsApp/Telefone" required class="w-full border border-gray-300 p-2 rounded text-sm focus:outline-none focus:border-primary">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-gray-700 mb-2">Anexar Currículo (PDF)</label>
+                                            <input type="file" name="attachment" accept="application/pdf" required class="block w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 cursor-pointer">
+                                        </div>
+                                    </div>
+
+                                    <div class="flex flex-col gap-2 mt-4">
+                                        <!-- Botão Enviar por E-mail (Upload Real) -->
+                                        <button type="submit" class="w-full bg-primary hover:bg-primaryDark text-white text-sm font-bold py-2 rounded-lg transition flex justify-center items-center gap-2">
+                                            <i class="fas fa-envelope-open-text"></i> <span id="job-btn-text">Enviar Candidatura (PDF)</span>
+                                            <i id="job-loader" class="fas fa-spinner fa-spin hidden"></i>
+                                        </button>
+                                        
+                                        <!-- Botão Alternativo WhatsApp (Apenas link) -->
+                                        <button type="button" onclick="applyJobWhatsApp('244926837464', 'Assistente de Loja')" class="w-full bg-green-500 hover:bg-green-600 text-white text-sm font-bold py-2 rounded-lg transition flex justify-center items-center gap-2">
+                                            <i class="fab fa-whatsapp"></i> Falar no WhatsApp
+                                        </button>
+                                        <p class="text-[10px] text-gray-400 text-center">*Para WhatsApp, anexe o PDF manualmente na conversa.</p>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -699,7 +728,8 @@
                     <h2 class="text-3xl font-bold text-center text-primaryDark mb-8">Fale Conosco</h2>
                     <div class="bg-white rounded-xl shadow-lg p-8">
                         <form id="contact-form" class="space-y-4">
-                            <input type="hidden" name="_to" value="angelinapatas97@gmail.com">
+                            <input type="hidden" name="_to" value="${SITE_EMAIL}">
+                            <input type="hidden" name="_subject" value="Nova Mensagem de Contato - Site">
                             <input type="text" name="name" placeholder="Nome Completo" required class="w-full border border-gray-300 rounded px-4 py-3 focus:border-primary focus:outline-none">
                             <input type="email" name="email" placeholder="E-mail" required class="w-full border border-gray-300 rounded px-4 py-3 focus:border-primary focus:outline-none">
                             <input type="tel" name="phone" placeholder="Telefone (+244)" class="w-full border border-gray-300 rounded px-4 py-3 focus:border-primary focus:outline-none">
@@ -784,28 +814,29 @@
             const msg = `Olá! Quero agendar:%0AServiço: ${inputs[2].value}%0AData: ${inputs[3].value} às ${inputs[4].value}%0AZona: ${inputs.zone.value}%0ACliente: ${inputs[5].value}`;
             window.open(`https://wa.me/244926837464?text=${msg}`, '_blank');
         }
-        function applyJob(phone, jobTitle, inputId) {
-            const fileInput = document.getElementById(inputId);
-            if(fileInput.files.length === 0) { alert("Por favor, selecione o seu currículo (PDF) antes de enviar."); return; }
-            const fileName = fileInput.files[0].name;
+        
+        // Função do Botão WhatsApp (Vagas) - Apenas abre o chat
+        function applyJobWhatsApp(phone, jobTitle) {
             const message = `Olá! Tenho interesse na vaga de *${jobTitle}* anunciada no site Patrícia Pattas. O meu currículo segue em anexo nesta conversa.`;
             const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
             window.open(url, '_blank');
-            setTimeout(() => { alert("O WhatsApp será aberto. Por favor, lembre-se de ANEXAR o ficheiro PDF (" + fileName + ") manualmente na conversa."); }, 1000);
+            alert("O WhatsApp será aberto. Por favor, lembre-se de ANEXAR o ficheiro PDF manualmente na conversa.");
         }
 
-        // --- LÓGICA DE FORMULÁRIOS (FORMSUBMIT) ---
+        // --- LÓGICA DE FORMULÁRIOS (FORMSUBMIT COM ARQUIVO REAL) ---
         async function handleFormSubmit(event, formId, btnTextId, loaderId, successMsg) {
             event.preventDefault();
             const form = document.getElementById(formId);
             const btnText = document.getElementById(btnTextId);
             const loader = document.getElementById(loaderId);
+            
+            // Cria o FormData (pega textos e arquivos automaticamente)
             const formData = new FormData(form);
 
-            // Validação simples de email placeholder
+            // Validação simples para evitar envio se o email for exemplo
             const emailTo = formData.get('_to');
             if(emailTo.includes('EXEMPLO.COM')) {
-                alert("ATENÇÃO: Você precisa editar o código e colocar seu email real na variável SITE_EMAIL e nos campos hidden dos formulários para que isso funcione.");
+                alert("Erro de configuração de email.");
                 return;
             }
 
@@ -814,10 +845,12 @@
             loader.classList.remove('hidden');
 
             try {
+                // Envia para o FormSubmit (AJAX)
                 const response = await fetch(`https://formsubmit.co/ajax/${emailTo}`, {
                     method: 'POST',
-                    body: formData
+                    body: formData // Envia o FormData diretamente (suporta arquivos)
                 });
+                
                 const result = await response.json();
                 
                 if (result.success === "true" || response.ok) {
@@ -827,7 +860,11 @@
                     alert('Houve um erro ao enviar. Tente novamente.');
                 }
             } catch (error) {
-                alert('Erro de conexão. Verifique sua internet.');
+                console.error(error);
+                // Fallback: Se o AJAX falhar (CORS ou arquivo muito grande), submete normal
+                // Mas geralmente FormSubmit AJAX aceita arquivos se < 25MB
+                alert('Erro de conexão ou arquivo muito grande. Tentando envio padrão...');
+                form.submit(); 
             } finally {
                 btnText.classList.remove('hidden');
                 loader.classList.add('hidden');
@@ -840,18 +877,11 @@
                 handleFormSubmit(e, 'newsletter-form', 'newsletter-btn-text', 'newsletter-loader', 'Inscrição realizada com sucesso! 🎉');
             } else if(e.target.id === 'contact-form') {
                 handleFormSubmit(e, 'contact-form', 'contact-btn-text', 'contact-loader', 'Mensagem enviada! Entraremos em contacto em breve.');
+            } else if(e.target.id === 'job-form') {
+                // Manipulador específico para a vaga
+                handleFormSubmit(e, 'job-form', 'job-btn-text', 'job-loader', 'Candidatura enviada com sucesso! O seu currículo foi entregue.');
             }
         });
-
-        // Atualizar campos hidden com o email configurado
-        function updateFormEmails() {
-            const hiddenInputs = document.querySelectorAll('input[name="_to"]');
-            hiddenInputs.forEach(input => {
-                if(input.value.includes('EXEMPLO.COM') && !SITE_EMAIL.includes('EXEMPLO.COM')) {
-                    input.value = SITE_EMAIL;
-                }
-            });
-        }
 
 
         // --- LÓGICA DA ASSISTENTE PATRÍCIA (Chatbot Nativo Avançado) ---
@@ -972,7 +1002,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             router('home');
             updateCartCount();
-            updateFormEmails(); // Inicializa emails nos forms
         });
 
     </script>
